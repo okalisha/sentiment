@@ -16,20 +16,6 @@ class App extends React.Component {
     }
   }
 
-  // componentDidMount() {
-  //   fetch("/api/draws?summary=1")
-  //   .then(response => response.json())
-  //   .then(data => this.setState({...this.state, draws: data}))
-
-  //   fetch("/api/nocs/all")
-  //   .then(response => response.json())
-  //   .then(data => this.setState({...this.state, nocs: data}))
-
-  //   fetch("/api/draws/overview")
-  //   .then(response => response.json())
-  //   .then(data => this.setState({...this.state, overview: data}))
-  // }
-
   render(){
     return (
       <Router>
