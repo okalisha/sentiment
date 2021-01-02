@@ -5,11 +5,11 @@ from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-def send_email(receiver_email, file_path):
+def send_email(receiver_email, file_name):
     subject = "An email with attachment from Python"
     body = "This is an email with attachment sent from Python"
-    sender_email = "okalisha@gmail.com"
-    password = ""
+    sender_email = "myfccia@gmail.com"
+    password = "wplufahehtyocdxd"
     receiver_email = receiver_email
 
     # Create a multipart message and set headers
@@ -22,10 +22,10 @@ def send_email(receiver_email, file_path):
     # Add body to email
     message.attach(MIMEText(body, "plain"))
 
-    filename = file_path   # In same directory as script
+    file_path = "../data/uploads/" + file_name
 
     # Open PDF file in binary mode
-    with open(filename, "rb") as attachment:
+    with open(file_path, "rb") as attachment:
         # Add file as application/octet-stream
         # Email client can usually download this automatically as attachment
         part = MIMEBase("application", "octet-stream")
@@ -37,7 +37,7 @@ def send_email(receiver_email, file_path):
     # Add header as key/value pair to attachment part
     part.add_header(
         "Content-Disposition",
-        f"attachment; filename= {filename}",
+        f"attachment; filename= {file_name}",
     )
 
     # Add attachment to message and convert message to string

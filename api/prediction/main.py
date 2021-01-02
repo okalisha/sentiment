@@ -60,12 +60,12 @@ async def read_item(items: Items):
 
 
 @app.post("/upload")
-async def create_upload_file(file: UploadFile = File(...)):
+async def create_upload_file(file: UploadFile = File(...), email: str = Form(...)):
     contents = await file.read()
-    path = f'uploads/{file.filename}'
+    path = f'../../data/uploads/{file.filename}'
     with open(path, 'wb') as f:
         f.write(contents)
-        redis.lpush('uploads', json.dumps({"email": "talha88@live.com", "path": path}))
+        redis.lpush('uploads', json.dumps({"email": email, "file_name": file.filename}))
     return {"filename": file.filename}
 
 

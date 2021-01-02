@@ -14,7 +14,8 @@ class Home extends React.Component {
             selectedFile: null,
             uploadStatus: false,
             fileName: 'Upload File...',
-            loaded: 0
+            loaded: 0,
+            email: null
         }
     }
 
@@ -33,6 +34,10 @@ class Home extends React.Component {
     }
 
     handleFileChange = event => {
+        if (event.target.files[0].type !== "text/csv") {
+            toast.error('Only CSV files are allowed.');
+            return
+        }
         if (event.target.files[0].size > 26214400) {
             toast.error('File is too large. Acceptable size is 25 MB');
             return
@@ -42,6 +47,12 @@ class Home extends React.Component {
             fileName: event.target.files[0].name,
             loaded: 0,
             uploadStatus: false
+        })
+    }
+
+    handleEmailChange = event => {
+        this.setState({
+            email: event.target.value
         })
     }
 
@@ -70,6 +81,7 @@ class Home extends React.Component {
         }  
         const data = new FormData() 
         data.append('file', this.state.selectedFile)
+        data.append('email', this.state.email)
         axios.post("http://localhost:8000/upload", data, {
             onUploadProgress: ProgressEvent => {
                 this.setState((state) => ({
@@ -96,6 +108,7 @@ class Home extends React.Component {
                     <div>{this.state.prediction}</div>
                     <br/>
                     <br/>
+                    <Form.Control type="email" placeholder="email@example.com" className="mr-sm-2" onChange={this.handleEmailChange}/>
                     <Form.File id="custom-file" label={this.state.fileName} custom onChange={this.handleFileChange}/>
                     <br/>
                     <br/>
