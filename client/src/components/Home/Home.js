@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Container, Button } from 'react-bootstrap';
+import { Form, Container, Button, Row, Col } from 'react-bootstrap';
 import { Progress } from 'reactstrap';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -79,7 +79,7 @@ class Home extends React.Component {
             toast.warning('File already uploaded!');
             return
         }  
-        
+
         const data = new FormData() 
         data.append('file', this.state.selectedFile)
         data.append('email', this.state.email)
@@ -102,21 +102,30 @@ class Home extends React.Component {
 
     render() {
         return (
-            <Container className=''>
-                <br/>
-                <Form >
-                    <Form.Control type="text" placeholder="Enter Text" className="mr-sm-2" onChange={this.handleTextChange}/>
-                    <div>{this.state.prediction}</div>
-                    <br/>
-                    <br/>
-                    <Form.Control type="email" placeholder="email@example.com" className="mr-sm-2" onChange={this.handleEmailChange}/>
-                    <Form.File id="custom-file" label={this.state.fileName} custom onChange={this.handleFileChange}/>
-                    <br/>
-                    <br/>
-                    <Button className="btn btn-info btn-block" onClick={this.uploadFile}>Upload</Button>
-                    <Progress max="100" color="success" value={this.state.loaded} >{Math.round(this.state.loaded,2) }%</Progress>
-                    <ToastContainer />
-                </Form>
+            <Container>
+                    <Row>
+                        <Col></Col>
+                        <Col xs={8}>
+                            <Form >
+                                <br />
+                                <hr/>
+                                <br />
+                                <Form.Control type="text" placeholder="Enter Text" className="mr-sm-2" onChange={this.handleTextChange}/>
+                                <div>{this.state.prediction}</div>
+                                <br/>
+                                <hr/>
+                                <br/>
+                                <Form.Control type="email" placeholder="email@example.com" className="mr-sm-2" onChange={this.handleEmailChange}/>
+                                <Form.File id="custom-file" label={this.state.fileName} custom onChange={this.handleFileChange}/>
+                                <br/>
+                                <br/>
+                                <Button className="btn btn-warning btn-block" onClick={this.uploadFile}>Upload</Button>
+                                <Progress max="100" color="success" value={this.state.loaded} >{Math.round(this.state.loaded,2) }%</Progress>
+                                <ToastContainer />
+                            </Form>
+                        </Col>
+                        <Col></Col>
+                    </Row>                
             </Container>
         )
     }

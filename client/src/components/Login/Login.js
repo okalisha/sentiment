@@ -1,6 +1,7 @@
 import React from 'react';
-import { Form, Container, Button } from 'react-bootstrap';
+import { Form, Container, Button, Navbar, Card, InputGroup } from 'react-bootstrap';
 import './Login.css'
+import logo from '../../static/canada.png'
 import axios from 'axios';
 
 class Login extends React.Component {
@@ -17,12 +18,11 @@ class Login extends React.Component {
             password: this.state.password
         }, {headers: {"Access-Control-Allow-Origin": "*"}})
         .then((response) => {
-            console.log(response)
             const info = {
-                authenticated: true,
-                username: 'alisha',
-                userType: 'customer',
-                accessToken: 'abcdef'
+                authenticated: response.data.authenticated,
+                username: response.data.username,
+                userType: response.data.userType,
+                accessToken: response.data.accessToken
             }
             this.props.login(info)
         }, (error) => {
@@ -44,51 +44,53 @@ class Login extends React.Component {
 
     render() {
         return (
-            <Container>
-                <div className="d-flex justify-content-center h-100">
-                    <div className="card">
-                        <div className="card-header">
-                            <h3>Sign In</h3>
-                            <div className="d-flex justify-content-end social_icon">
-                                <span><i className="fab fa-facebook-square"></i></span>
-                                <span><i className="fab fa-google-plus-square"></i></span>
-                                <span><i className="fab fa-twitter-square"></i></span>
-                            </div>
-                        </div>
-                        <div className="card-body">
-                            <Form>
-                                <div className="input-group form-group">
-                                    <div className="input-group-prepend">
-                                        <span className="input-group-text"><i className="fas fa-user"></i></span>
-                                    </div>
-                                    <Form.Control type="text" placeholder="username" onChange={this.handleUsernameChange}/>
-                                    
+            <div>
+                <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
+                    <Navbar.Brand to="/home"><img alt="" src={logo} width="40" height="30" className="d-inline-block align-top"/>Reviews Insights</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav"></Navbar.Collapse>
+                </Navbar> 
+                <Container>
+                    <div className="d-flex justify-content-center h-100">
+                        <Card>
+                            <Card.Header>
+                                <h3>Sign In</h3>
+                            </Card.Header>
+                            <Card.Body>
+                                <Form>
+                                    <Form.Group controlId="formGroupUsername">
+                                        <InputGroup className="mb-3">
+                                            <InputGroup.Prepend >
+                                                <InputGroup.Text />                                        
+                                            </InputGroup.Prepend>
+                                            <Form.Control type="text" placeholder="USERNAME" onChange={this.handleUsernameChange}/>  
+                                        </InputGroup>
+                                    </Form.Group>
+                                    <Form.Group controlId="formGroupPassword">
+                                        <InputGroup className="mb-3">
+                                            <InputGroup.Prepend >
+                                                <InputGroup.Text />
+                                            </InputGroup.Prepend>
+                                            <Form.Control type="passowrd" placeholder="PASSWORD" onChange={this.handlePasswordChange}/>  
+                                        </InputGroup>
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Button className="btn btn-warning btn-block" onClick={this.login}>Log In</Button>
+                                    </Form.Group>
+                                </Form>
+                            </Card.Body>
+                            <Card.Footer>
+                                <div className="d-flex justify-content-center links">
+                                    Don't have an account?<a href="/signup">Sign Up</a>
                                 </div>
-                                <div className="input-group form-group">
-                                    <div className="input-group-prepend">
-                                        <span className="input-group-text"><i className="fas fa-key"></i></span>
-                                    </div>
-                                    <Form.Control type="password" placeholder="password" onChange={this.handlePasswordChange}/>
+                                <div className="d-flex justify-content-center">
+                                    <a href="/forget">Forgot your password?</a>
                                 </div>
-                                <div className="row align-items-center remember">
-                                    {/* <input type="checkbox">Remember Me/</input> */}
-                                </div>
-                                <div className="form-group">
-                                <Button className="btn btn-warning btn-block" onClick={this.login}>Login</Button>
-                                </div>
-                            </Form>
-                        </div>
-                        <div className="card-footer">
-                            <div className="d-flex justify-content-center links">
-                                Don't have an account?<a href="/signup">Sign Up</a>
-                            </div>
-                            <div className="d-flex justify-content-center">
-                                <a href="/forget">Forgot your password?</a>
-                            </div>
-                        </div>
+                            </Card.Footer>
+                        </Card>
                     </div>
-                </div>
-            </Container>
+                </Container>
+            </div>
         )
     }
 }

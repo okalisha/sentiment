@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Usage from './components/Usage/Usage'
 import Home from './components/Home/Home'
 import Login from './components/Login/Login'
-import { Nav, Navbar } from 'react-bootstrap';
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import './App.css'
 import logo from './static/canada.png'
 import Cookies from 'js-cookie';
@@ -20,46 +20,64 @@ class App extends React.Component {
   }
 
   login = (info) => {
+
+    Cookies.set('authenticated', info.authenticated);
+    Cookies.set('username', info.username);
+    Cookies.set('userType', info.userType);
+    Cookies.set('accessToken', info.accessToken);
+
     this.setState({
-      authenticated: Cookies.set('authenticated', info.authenticated),
-      username: Cookies.set('username', info.username),
-      userType: Cookies.set('userType', info.userType),
-      accessToken: Cookies.set('accessToken', info.accessToken)
+      authenticated: info.authenticated,
+      username: info.username,
+      userType: info.userType,
+      accessToken: info.accessToken
     })
   }
   
+  logout = () => {
+    Cookies.remove('username')
+    Cookies.remove('authenticated')
+    Cookies.remove('userType')
+    Cookies.remove('accessToken')
+
+    this.setState({
+        authenticated: false,
+        username: null,
+        userType: null,
+        accessToken: null,
+    })
+  }
 
   render(){
     if(!this.state.authenticated) {
       return (
         <div >
-          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
-            <Navbar.Brand ><img alt="" src={logo} width="40" height="30" className="d-inline-block align-top"/>{' '}Sentiment</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav"></Navbar.Collapse>
-          </Navbar> 
           <Login login={this.login}/>
         </div>
       )
-        
-
     } else {
       return (
         <Router>
           <div style={{backgroundColor: `#f2f2f2`, minHeight:'100vh'}}>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
-              <Navbar.Brand as={Link} to="/home"><img alt="" src={logo} width="40" height="30" className="d-inline-block align-top"/>{' '}Sentiment</Navbar.Brand>
+              <Navbar.Brand as={Link} to="/home"><img alt="" src={logo} width="40" height="30" className="d-inline-block align-top"/>Reviews Insights</Navbar.Brand>
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mr-auto">
                 <Nav.Item><Nav.Link eventKey="3" as={Link} to="/">Home</Nav.Link></Nav.Item>
                 <Nav.Item><Nav.Link eventKey="1" as={Link} to="/usage">Usage</Nav.Link></Nav.Item>
               </Nav>
+              <Nav>
+                <NavDropdown title={this.state.username} id="collasible-nav-dropdown">
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item eventKey="4" as={Link} to="/login" onClick={this.logout}>Logout</NavDropdown.Item>
+                </NavDropdown>
+              </Nav>
               </Navbar.Collapse>
             </Navbar> 
             <Switch>
-              <Route path="/usage"><Usage data={this.state.nocs}/></Route>
-              <Route path="/"><Home data={this.state.draws}/></Route>
+              <Route path="/usage"><Usage /></Route>
+              <Route path="/"><Home /></Route>
             </Switch>
           </div>
         </Router>
