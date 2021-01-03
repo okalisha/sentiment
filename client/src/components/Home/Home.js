@@ -79,6 +79,7 @@ class Home extends React.Component {
             toast.warning('File already uploaded!');
             return
         }  
+        
         const data = new FormData() 
         data.append('file', this.state.selectedFile)
         data.append('email', this.state.email)
