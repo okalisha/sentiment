@@ -54,8 +54,19 @@ async def read_item(items: Items):
     data_vector = cv.transform(data['items']).toarray()
     predictions = clf.predict(data_vector)
     for i in range(len(predictions)):
-        predicted_class = 'POSITIVE' if predictions[i] == 1 else 'NEGATIVE' 
-        result.append({'text': data['items'][i], 'prediction': predicted_class, 'score':''})
+        if predictions[i] == 1:
+            predicted_class="Positive"
+        else:
+            predicted_class ="Negative"
+        # predicted_class = 'POSITIVE' if predictions[i] == 1 else 'NEGATIVE' 
+
+        result.append(
+            {
+                'text': data['items'][i], 
+                'prediction': predicted_class, 
+                'score':''
+            }
+        )
     return {'predictions': result}
 
 

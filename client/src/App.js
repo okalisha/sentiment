@@ -24,13 +24,13 @@ class App extends React.Component {
     Cookies.set('authenticated', info.authenticated);
     Cookies.set('username', info.username);
     Cookies.set('userType', info.userType);
-    Cookies.set('accessToken', info.accessToken);
+    Cookies.set('authToken', info.authToken);
 
     this.setState({
       authenticated: info.authenticated,
       username: info.username,
       userType: info.userType,
-      accessToken: info.accessToken
+      authToken: info.authToken
     })
   }
   
@@ -38,13 +38,13 @@ class App extends React.Component {
     Cookies.remove('username')
     Cookies.remove('authenticated')
     Cookies.remove('userType')
-    Cookies.remove('accessToken')
+    Cookies.remove('authToken')
 
     this.setState({
         authenticated: false,
         username: null,
         userType: null,
-        accessToken: null,
+        authToken: null,
     })
   }
 

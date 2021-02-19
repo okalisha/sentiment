@@ -13,24 +13,27 @@ class Login extends React.Component {
     }
 
     login = () => {
-        axios.post('http://localhost:8001/login', {
+        axios.post('http://localhost:8000/login', {
             username: this.state.username,
             password: this.state.password
         }, {headers: {"Access-Control-Allow-Origin": "*"}})
         .then((response) => {
+            
             const info = {
                 authenticated: response.data.authenticated,
                 username: response.data.username,
                 userType: response.data.userType,
-                accessToken: response.data.accessToken
+                authToken: response.data.authToken
             }
+            console.log(info)
             this.props.login(info)
         }, (error) => {
             console.log(error);
         });
     }
 
-    handleUsernameChange = event => { 
+    handleUsernameChange = event =>  { 
+       
         this.setState({
             username: event.target.value
         })
@@ -71,7 +74,7 @@ class Login extends React.Component {
                                             <InputGroup.Prepend >
                                                 <InputGroup.Text />
                                             </InputGroup.Prepend>
-                                            <Form.Control type="passowrd" placeholder="PASSWORD" onChange={this.handlePasswordChange}/>  
+                                            <Form.Control type="password" placeholder="PASSWORD" onChange={this.handlePasswordChange}/>  
                                         </InputGroup>
                                     </Form.Group>
                                     <Form.Group>

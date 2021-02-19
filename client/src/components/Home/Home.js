@@ -10,7 +10,7 @@ class Home extends React.Component {
         super(props); 
         this.state = {
             inputText: null,
-            prediction: null,
+            prediction: "Your prediction will show here!",
             selectedFile: null,
             uploadStatus: false,
             fileName: 'Upload File...',
@@ -28,8 +28,7 @@ class Home extends React.Component {
             ...state, inputText: event.target.value
         }))
         if (event.target.value.length > 10) {
-            this.timer = setTimeout(this.callAPI, 500)
-            this.callPredictionAPI()
+            this.timer = setTimeout(this.callPredictionAPI(), 10000)         
         } 
     }
 
@@ -57,7 +56,7 @@ class Home extends React.Component {
     }
 
     callPredictionAPI = () => {
-        axios.post('http://localhost:8000/predict', {
+        axios.post('http://localhost:8001/predict', {
             items:[this.state.inputText]
         }, {headers: {"Access-Control-Allow-Origin": "*"}})
         .then((response) => {
