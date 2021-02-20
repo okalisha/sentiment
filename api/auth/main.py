@@ -36,6 +36,11 @@ def read_root():
 @app.post("/login", response_model=AuthInfo)
 async def read_item(credentials: Creds):
     creds = credentials.dict()
-    if creds["username"] != "okalisha98@gmail.com":
-        raise HTTPException(status_code=401, detail="Not Allowed")
-    return {"username": "alisha", "userType": "customer", "authToken": "abcxyz", "authenticated": True}
+    print(creds)
+    if creds["username"] == "okalisha98@gmail.com" or creds["username"] =="osamaraees98@hotmail.com": 
+        if creds["username"] == "okalisha98@gmail.com":
+            username="alisha"
+        else:
+            username="osama" 
+        return {"username": username, "userType": "customer", "authToken": "abcxyz", "authenticated": True}
+    raise HTTPException(status_code=401, detail="Not Allowed")
