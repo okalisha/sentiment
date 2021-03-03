@@ -7,6 +7,7 @@ import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import './App.css'
 import logo from './static/canada.png'
 import Cookies from 'js-cookie';
+import SignUp from './components/SignUp/SignUp';
 
 class App extends React.Component {
   constructor(props) {
@@ -33,7 +34,11 @@ class App extends React.Component {
       authToken: info.authToken
     })
   }
-  
+
+  signup = (info) => {
+
+  }
+
   logout = () => {
     Cookies.remove('username')
     Cookies.remove('authenticated')
@@ -48,11 +53,12 @@ class App extends React.Component {
     })
   }
 
+
   render(){
     if(!this.state.authenticated) {
       return (
         <div >
-          <Login login={this.login}/>
+          <SignUp />
         </div>
       )
     } else {

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Form, Container, Button, Navbar, Card, InputGroup } from 'react-bootstrap';
-import './Login.css'
+import './Signup.css'
 import logo from '../../static/canada.png'
 import axios from 'axios';
 
-class Login extends React.Component {
+class SignUp extends React.Component {
     constructor(props) {
         super(props); 
         this.state = {
@@ -12,8 +12,8 @@ class Login extends React.Component {
         }
     }
 
-    login = () => {
-        axios.post('http://localhost:8000/login', {
+    signup = () => {
+        axios.post('http://localhost:8000/signup', {
             username: this.state.username,
             password: this.state.password
         }, {headers: {"Access-Control-Allow-Origin": "*"}})
@@ -57,7 +57,7 @@ class Login extends React.Component {
                     <div className="d-flex justify-content-center h-100">
                         <Card>
                             <Card.Header>
-                                <h3>Sign In</h3>
+                                <h3>Sign Up</h3>
                             </Card.Header>
                             <Card.Body>
                                 <Form>
@@ -66,7 +66,7 @@ class Login extends React.Component {
                                             <InputGroup.Prepend >
                                                 <InputGroup.Text />                                        
                                             </InputGroup.Prepend>
-                                            <Form.Control type="text" placeholder="USERNAME" onChange={this.handleUsernameChange}/>  
+                                            <Form.Control type="text" placeholder="Your NAME" onChange={this.handleUsernameChange}/>  
                                         </InputGroup>
                                     </Form.Group>
                                     <Form.Group controlId="formGroupPassword">
@@ -74,17 +74,17 @@ class Login extends React.Component {
                                             <InputGroup.Prepend >
                                                 <InputGroup.Text />
                                             </InputGroup.Prepend>
-                                            <Form.Control type="password" placeholder="PASSWORD" onChange={this.handlePasswordChange}/>  
+                                            
                                         </InputGroup>
                                     </Form.Group>
                                     <Form.Group>
-                                        <Button className="btn btn-warning btn-block" onClick={this.login}>Log In</Button>
+                                        <Button className="btn btn-warning btn-block" onClick={this.signup}>SignUp</Button>
                                     </Form.Group>
                                 </Form>
                             </Card.Body>
                             <Card.Footer>
                                 <div className="d-flex justify-content-center links">
-                                    Don't have an account?<a href="/signup" onClick={this.signup}>SignUp</a>
+                                    Don't have an account?<a href="/signup">Sign Up</a>
                                 </div>
                                 <div className="d-flex justify-content-center">
                                     <a href="/forget">Forgot your password?</a>
@@ -98,4 +98,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default SignUp;

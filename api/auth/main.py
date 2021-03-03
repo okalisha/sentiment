@@ -44,3 +44,8 @@ async def read_item(credentials: Creds):
             username="osama" 
         return {"username": username, "userType": "customer", "authToken": "abcxyz", "authenticated": True}
     raise HTTPException(status_code=401, detail="Not Allowed")
+
+@app.post("/signup", response_model=AuthInfo)
+async def create_item():
+    return "this is signup page"
+ raise HTTPException(status_code=401, detail="Not Allowed")
