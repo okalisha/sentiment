@@ -48,11 +48,6 @@ class SignUp extends React.Component {
     render() {
         return (
             <div>
-                <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
-                    <Navbar.Brand to="/home"><img alt="" src={logo} width="40" height="30" className="d-inline-block align-top"/>Reviews Insights</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav"></Navbar.Collapse>
-                </Navbar> 
                 <Container>
                     <div className="d-flex justify-content-center h-100">
                         <Card>

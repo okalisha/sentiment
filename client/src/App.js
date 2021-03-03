@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Usage from './components/Usage/Usage'
 import Home from './components/Home/Home'
 import Login from './components/Login/Login'
+import SignUp from './components/SignUp/SignUp'
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import './App.css'
 import logo from './static/canada.png'
 import Cookies from 'js-cookie';
-import SignUp from './components/SignUp/SignUp';
 
 class App extends React.Component {
   constructor(props) {
@@ -58,7 +58,7 @@ class App extends React.Component {
     if(!this.state.authenticated) {
       return (
         <div >
-          <SignUp />
+          <Login login={this.login}/>
         </div>
       )
     } else {
@@ -72,6 +72,7 @@ class App extends React.Component {
               <Nav className="mr-auto">
                 <Nav.Item><Nav.Link eventKey="3" as={Link} to="/">Home</Nav.Link></Nav.Item>
                 <Nav.Item><Nav.Link eventKey="1" as={Link} to="/usage">Usage</Nav.Link></Nav.Item>
+                
               </Nav>
               <Nav>
                 <NavDropdown title={this.state.username} id="collasible-nav-dropdown">
@@ -83,7 +84,10 @@ class App extends React.Component {
             </Navbar> 
             <Switch>
               <Route path="/usage"><Usage /></Route>
+              <Route path="/signup"><SignUp /></Route>
               <Route path="/"><Home /></Route>
+              
+              
             </Switch>
           </div>
         </Router>
