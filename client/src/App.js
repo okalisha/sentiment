@@ -72,6 +72,7 @@ class App extends React.Component {
               <Nav className="mr-auto">
                 <Nav.Item><Nav.Link eventKey="3" as={Link} to="/">Home</Nav.Link></Nav.Item>
                 <Nav.Item><Nav.Link eventKey="1" as={Link} to="/usage">Usage</Nav.Link></Nav.Item>
+                <Nav.Item><Nav.Link eventKey="2" as={Link} to="/signup">SignUp</Nav.Link></Nav.Item>
                 
               </Nav>
               <Nav>

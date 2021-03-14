@@ -38,10 +38,25 @@ class SignUp extends React.Component {
             username: event.target.value
         })
     }
+    handleOrganizationNameChange = event => { 
+        this.setState({
+            organizationname: event.target.value
+        })
+    }
+    handleEmailChange = event => { 
+        this.setState({
+            email: event.target.value
+        })
+    }
 
     handlePasswordChange = event => { 
         this.setState({
             password: event.target.value
+        })
+    }
+    handleConfirmPasswordChange = event => { 
+        this.setState({
+            confirmpassword: event.target.value
         })
     }
 
@@ -61,7 +76,23 @@ class SignUp extends React.Component {
                                             <InputGroup.Prepend >
                                                 <InputGroup.Text />                                        
                                             </InputGroup.Prepend>
-                                            <Form.Control type="text" placeholder="Your NAME" onChange={this.handleUsernameChange}/>  
+                                            <Form.Control type="text" placeholder="Name" onChange={this.handleUsernameChange}/>  
+                                        </InputGroup>
+                                    </Form.Group>
+                                    <Form.Group controlId="formGroupOrganizationName">
+                                        <InputGroup className="mb-3">
+                                            <InputGroup.Prepend >
+                                                <InputGroup.Text />
+                                            </InputGroup.Prepend>
+                                            <Form.Control type="text" placeholder="Organization Name" onChange={this.handleOrganizationNameChange}/>
+                                        </InputGroup>
+                                    </Form.Group>
+                                    <Form.Group controlId="formGroupEmail">
+                                        <InputGroup className="mb-3">
+                                            <InputGroup.Prepend >
+                                                <InputGroup.Text />
+                                            </InputGroup.Prepend>
+                                            <Form.Control type="text" placeholder="Email" onChange={this.handleEmailChange}/>
                                         </InputGroup>
                                     </Form.Group>
                                     <Form.Group controlId="formGroupPassword">
@@ -69,7 +100,15 @@ class SignUp extends React.Component {
                                             <InputGroup.Prepend >
                                                 <InputGroup.Text />
                                             </InputGroup.Prepend>
-                                            
+                                            <Form.Control type="text" placeholder="Password" onChange={this.handlePasswordChange}/>
+                                        </InputGroup>
+                                    </Form.Group>
+                                    <Form.Group controlId="formGroupConfirmPassword">
+                                        <InputGroup className="mb-3">
+                                            <InputGroup.Prepend >
+                                                <InputGroup.Text />
+                                            </InputGroup.Prepend>
+                                            <Form.Control type="text" placeholder="Confirm Password" onChange={this.handleConfirmPasswordChange}/>
                                         </InputGroup>
                                     </Form.Group>
                                     <Form.Group>
@@ -77,14 +116,7 @@ class SignUp extends React.Component {
                                     </Form.Group>
                                 </Form>
                             </Card.Body>
-                            <Card.Footer>
-                                <div className="d-flex justify-content-center links">
-                                    Don't have an account?<a href="/signup">Sign Up</a>
-                                </div>
-                                <div className="d-flex justify-content-center">
-                                    <a href="/forget">Forgot your password?</a>
-                                </div>
-                            </Card.Footer>
+                                        
                         </Card>
                     </div>
                 </Container>

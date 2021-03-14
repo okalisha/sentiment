@@ -57,7 +57,7 @@ class Login extends React.Component {
                     <div className="d-flex justify-content-center h-100">
                         <Card>
                             <Card.Header>
-                                <h3>Sign In</h3>
+                                <h3>LogIn</h3>
                             </Card.Header>
                             <Card.Body>
                                 <Form>

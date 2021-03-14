@@ -3,9 +3,11 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html,body{
+    
 /* background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg'); */
 background-size: cover;
 background-repeat: no-repeat;
+background-color: rgb(182, 24, 24);
 height: 100%;
 /* font-family: 'Numans', sans-serif; */
 }
@@ -15,27 +17,32 @@ height: 100%;
 align-content: center;
 }
 
+
 .card{
-height: 370px;
-margin-top: auto;
+height: 450px;
+margin-top:15%;
+margin-left: 60%;
 margin-bottom: auto;
 width: 400px;
-background-color: rgba(0,0,0,0.5) !important;
+background-color:gray;
 }
 
 .social_icon span{
 font-size: 60px;
 margin-left: 10px;
-color: #FFC312;
+color: #14ca14;
 }
 
 .social_icon span:hover{
-color: white;
+color:black;
 cursor: pointer;
 }
 
 .card-header h3{
-color: white;
+color:black;
+text-align: center;
+text-decoration-style: double;
+
 }
 
 .social_icon{
@@ -46,7 +53,7 @@ top: -45px;
 
 .input-group-prepend span{
 width: 50px;
-background-color: #FFC312;
+background-color:rgb(241, 219, 18);
 color: black;
 border:0 !important;
 }
@@ -70,18 +77,18 @@ margin-right: 5px;
 }
 
 .login_btn{
-color: black;
-background-color: #FFC312;
+color:green;
+background-color: black;
 width: 100px;
 }
 
-.login_btn:hover{
+.signup_btn:hover{
 color: black;
-background-color: white;
+background-color: black;
 }
 
 .links{
-color: white;
+color: black;
 }
 
 .links a{
