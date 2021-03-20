@@ -2,6 +2,7 @@ from typing import Optional, List
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+import psycopg2
 
 app = FastAPI()
 
@@ -28,6 +29,13 @@ class AuthInfo(BaseModel):
     authToken: str
     authenticated: bool
 
+class SignupSuccess(BaseModel):
+    status: str
+
+class Form(BaseModel):
+    first_name: str
+    last_name: str
+
 @app.get("/")
 def read_root():
     return 'Welcome To Authentication Server'
@@ -36,16 +44,33 @@ def read_root():
 @app.post("/login", response_model=AuthInfo)
 async def read_item(credentials: Creds):
     creds = credentials.dict()
-    print(creds)
-    if creds["username"] == "okalisha98@gmail.com" or creds["username"] =="osamaraees98@hotmail.com": 
-        if creds["username"] == "okalisha98@gmail.com":
-            username="alisha"
-        else:
-            username="osama" 
-        return {"username": username, "userType": "customer", "authToken": "abcxyz", "authenticated": True}
-    raise HTTPException(status_code=401, detail="Not Allowed")
+    success= False
 
-@app.post("/signup", response_model=AuthInfo)
-async def create_item():
-    return "this is signup page"
+
+    con = psycopg2.connect(
+        host = "15.206.153.123",
+        database="postgres",
+        user="postgres",
+        password="mysecretpassword"
+    )
+    cur = con.cursor()
+    query="select first_name from customer where email='"+creds["username"]+"' and password='"+creds["password"]+"'"
+    cur.execute(query)
+    rows=cur.fetchall()
+
+    if len(rows):
+        success = True
+        username = rows[0][0]
+
+    cur.close
+    con.close()
+    
+    if success:
+        return {"username": username, "userType": "customer", "authToken": "abcxyz", "authenticated": True}
+    else:
+        raise HTTPException(status_code=401, detail="Not Allowed")
+
+@app.post("/signup", response_model=SignupSuccess)
+async def create_item(formdata: Form):
+    return {"status": "signup successfull"}
     #raise HTTPException(status_code=401, detail="Not Allowed")
