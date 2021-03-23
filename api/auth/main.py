@@ -35,6 +35,11 @@ class SignupSuccess(BaseModel):
 class Form(BaseModel):
     first_name: str
     last_name: str
+    email: str
+    phone: str
+    company: str
+    password: str
+
 
 @app.get("/")
 def read_root():
@@ -72,5 +77,26 @@ async def read_item(credentials: Creds):
 
 @app.post("/signup", response_model=SignupSuccess)
 async def create_item(formdata: Form):
+    form = formdata.dict()
+
+    con = psycopg2.connect(
+        host = "15.206.153.123",
+        database="postgres",
+        user="postgres",
+        password="mysecretpassword"
+    )
+    cur = con.cursor()  
+    c_first_name=form['first_name']
+    c_last_name=form['last_name']
+    c_email=form['email']
+    c_comapny=form['company']
+    c_password=form['password']
+    sql=f"INSERT INTO customer (first_name, last_name, email, company, password ) VALUES ('{c_first_name}','{c_last_name}', '{c_email}', '{c_comapny}','{c_password}')"
+    print(sql)
+    cur.execute(sql)
+    con.commit()
+    cur.close
+    con.close()
+
     return {"status": "signup successfull"}
     #raise HTTPException(status_code=401, detail="Not Allowed")
