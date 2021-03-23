@@ -14,33 +14,43 @@ class SignUp extends React.Component {
 
     signup = () => {
         axios.post('http://localhost:8000/signup', {
-            username: this.state.username,
+            first_name: this.state.first_name,
+            last_name: this.state.last_name,
+            comapany: this.state.company,
+            email: this.state.email,
+            phone: this.state.phone,
             password: this.state.password
         }, {headers: {"Access-Control-Allow-Origin": "*"}})
         .then((response) => {
             
-            const info = {
-                authenticated: response.data.authenticated,
-                username: response.data.username,
-                userType: response.data.userType,
-                authToken: response.data.authToken
-            }
-            console.log(info)
-            this.props.login(info)
+            
+            alert(response)
+          
         }, (error) => {
-            console.log(error);
+            console.log(this.state);
         });
     }
 
-    handleUsernameChange = event =>  { 
+    handleFirstNameChange = event =>  { 
        
         this.setState({
-            username: event.target.value
+            first_name: event.target.value
+        })
+    }
+    handleLastNameChange = event =>  { 
+       
+        this.setState({
+            last_name: event.target.value
         })
     }
     handleOrganizationNameChange = event => { 
         this.setState({
-            organizationname: event.target.value
+            company: event.target.value
+        })
+    }
+    handlePhoneNumberChange = event => { 
+        this.setState({
+            phone: event.target.value
         })
     }
     handleEmailChange = event => { 
@@ -54,11 +64,7 @@ class SignUp extends React.Component {
             password: event.target.value
         })
     }
-    handleConfirmPasswordChange = event => { 
-        this.setState({
-            confirmpassword: event.target.value
-        })
-    }
+  
 
     render() {
         return (
@@ -71,12 +77,20 @@ class SignUp extends React.Component {
                             </Card.Header>
                             <Card.Body>
                                 <Form>
-                                    <Form.Group controlId="formGroupUsername">
+                                    <Form.Group controlId="formGroupFirstname">
                                         <InputGroup className="mb-3">
                                             <InputGroup.Prepend >
                                                 <InputGroup.Text />                                        
                                             </InputGroup.Prepend>
-                                            <Form.Control type="text" placeholder="Name" onChange={this.handleUsernameChange}/>  
+                                            <Form.Control type="text" placeholder="First Name" onChange={this.handleFirstNameChange}/>  
+                                        </InputGroup>
+                                    </Form.Group>
+                                    <Form.Group controlId="formGroupLastname">
+                                        <InputGroup className="mb-3">
+                                            <InputGroup.Prepend >
+                                                <InputGroup.Text />                                        
+                                            </InputGroup.Prepend>
+                                            <Form.Control type="text" placeholder="Last Name" onChange={this.handleLastNameChange}/>  
                                         </InputGroup>
                                     </Form.Group>
                                     <Form.Group controlId="formGroupOrganizationName">
@@ -95,6 +109,14 @@ class SignUp extends React.Component {
                                             <Form.Control type="text" placeholder="Email" onChange={this.handleEmailChange}/>
                                         </InputGroup>
                                     </Form.Group>
+                                    <Form.Group controlId="formGroupPhone">
+                                        <InputGroup className="mb-3">
+                                            <InputGroup.Prepend >
+                                                <InputGroup.Text />                                        
+                                            </InputGroup.Prepend>
+                                            <Form.Control type="text" placeholder="Phone Number" onChange={this.handlePhoneNumberChange}/>  
+                                        </InputGroup>
+                                    </Form.Group>
                                     <Form.Group controlId="formGroupPassword">
                                         <InputGroup className="mb-3">
                                             <InputGroup.Prepend >
@@ -102,15 +124,7 @@ class SignUp extends React.Component {
                                             </InputGroup.Prepend>
                                             <Form.Control type="text" placeholder="Password" onChange={this.handlePasswordChange}/>
                                         </InputGroup>
-                                    </Form.Group>
-                                    <Form.Group controlId="formGroupConfirmPassword">
-                                        <InputGroup className="mb-3">
-                                            <InputGroup.Prepend >
-                                                <InputGroup.Text />
-                                            </InputGroup.Prepend>
-                                            <Form.Control type="text" placeholder="Confirm Password" onChange={this.handleConfirmPasswordChange}/>
-                                        </InputGroup>
-                                    </Form.Group>
+                                    </Form.Group>                           
                                     <Form.Group>
                                         <Button className="btn btn-warning btn-block" onClick={this.signup}>SignUp</Button>
                                     </Form.Group>
