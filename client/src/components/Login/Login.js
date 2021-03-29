@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Container, Button, Navbar, Card, InputGroup } from 'react-bootstrap';
 import './Login.css'
-import logo from '../../static/canada.png'
+import logo from '../../static/Pakistan.png'
 import axios from 'axios';
 
 class Login extends React.Component {

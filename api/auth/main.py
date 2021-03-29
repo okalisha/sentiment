@@ -89,9 +89,9 @@ async def create_item(formdata: Form):
     c_first_name=form['first_name']
     c_last_name=form['last_name']
     c_email=form['email']
-    c_comapny=form['company']
+    c_company=form['company']
     c_password=form['password']
-    sql=f"INSERT INTO customer (first_name, last_name, email, company, password ) VALUES ('{c_first_name}','{c_last_name}', '{c_email}', '{c_comapny}','{c_password}')"
+    sql=f"INSERT INTO customer (first_name, last_name, email, company, password ) VALUES ('{c_first_name}','{c_last_name}', '{c_email}', '{c_company}','{c_password}')"
     print(sql)
     cur.execute(sql)
     con.commit()

@@ -6,7 +6,7 @@ import Login from './components/Login/Login'
 import SignUp from './components/SignUp/SignUp'
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import './App.css'
-import logo from './static/canada.png'
+import logo from './static/Pakistan.png'
 import Cookies from 'js-cookie';
 
 class App extends React.Component {
@@ -72,7 +72,7 @@ class App extends React.Component {
               <Nav className="mr-auto">
                 <Nav.Item><Nav.Link eventKey="3" as={Link} to="/">Home</Nav.Link></Nav.Item>
                 <Nav.Item><Nav.Link eventKey="1" as={Link} to="/usage">Usage</Nav.Link></Nav.Item>
-                <Nav.Item><Nav.Link eventKey="2" as={Link} to="/signup">SignUp</Nav.Link></Nav.Item>
+                
                 
               </Nav>
               <Nav>
@@ -85,10 +85,7 @@ class App extends React.Component {
             </Navbar> 
             <Switch>
               <Route path="/usage"><Usage /></Route>
-              <Route path="/signup"><SignUp /></Route>
               <Route path="/"><Home /></Route>
-              
-              
             </Switch>
           </div>
         </Router>
