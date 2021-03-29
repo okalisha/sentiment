@@ -146,3 +146,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 client/.eslintcache
+modelling/Amazon_Reviews_All.csv
+modelling/Amazon_Reviews.csv
+modelling/test.ft.txt
