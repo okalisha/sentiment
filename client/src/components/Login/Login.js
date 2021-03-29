@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Container, Button, Navbar, Card, InputGroup } from 'react-bootstrap';
 import './Login.css'
-import logo from '../../static/canada.png'
+import logo from '../../static/Pakistan.png'
 import axios from 'axios';
 
 class Login extends React.Component {
@@ -57,7 +57,7 @@ class Login extends React.Component {
                     <div className="d-flex justify-content-center h-100">
                         <Card>
                             <Card.Header>
-                                <h3>Sign In</h3>
+                                <h3>LogIn</h3>
                             </Card.Header>
                             <Card.Body>
                                 <Form>
@@ -84,7 +84,7 @@ class Login extends React.Component {
                             </Card.Body>
                             <Card.Footer>
                                 <div className="d-flex justify-content-center links">
-                                    Don't have an account?<a href="/signup">Sign Up</a>
+                                    Don't have an account?<a href="/signup" onClick={this.signup}>SignUp</a>
                                 </div>
                                 <div className="d-flex justify-content-center">
                                     <a href="/forget">Forgot your password?</a>

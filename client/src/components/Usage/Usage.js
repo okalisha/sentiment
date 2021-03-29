@@ -1,5 +1,5 @@
 import React from 'react';
-import canada from '../../static/canada.png'
+import canada from '../../static/Pakistan.png'
 import {Card, Container, CardDeck, Image} from 'react-bootstrap'
 import bg from '../../static/bg.jpg'
 
