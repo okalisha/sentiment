@@ -8,6 +8,8 @@ import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import './App.css'
 import logo from './static/Pakistan.png'
 import Cookies from 'js-cookie';
+import Sidebar from './components/Sidebar/Sidebar';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -72,7 +74,7 @@ class App extends React.Component {
               <Nav className="mr-auto">
                 <Nav.Item><Nav.Link eventKey="3" as={Link} to="/">Home</Nav.Link></Nav.Item>
                 <Nav.Item><Nav.Link eventKey="1" as={Link} to="/usage">Usage</Nav.Link></Nav.Item>
-                
+                <Nav.Item><Nav.Link eventKey="2" as={Link} to="/sidebar">Sidebar</Nav.Link></Nav.Item>
                 
               </Nav>
               <Nav>
@@ -86,6 +88,7 @@ class App extends React.Component {
             <Switch>
               <Route path="/usage"><Usage /></Route>
               <Route path="/"><Home /></Route>
+              <Route path="/sidebar"><Sidebar /></Route>
             </Switch>
           </div>
         </Router>
