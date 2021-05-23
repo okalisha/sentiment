@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from redis import Redis
 import json
+import psycopg2
 
 app = FastAPI()
 redis = Redis(host='localhost', port=6379, db=0)
@@ -12,6 +13,7 @@ redis = Redis(host='localhost', port=6379, db=0)
 origins = [
     "http://localhost",
     "http://localhost:3000",
+    "http://localhost:3001",
 ]
 
 app.add_middleware(
@@ -24,7 +26,14 @@ app.add_middleware(
 
 class Items(BaseModel):
     items: list = []
-
+    customer_id: str  
+    #request_type: str
+    #instance_count: str
+    #positive_comments: str
+    #negative_comments: str
+    #status: str
+    #delivery_method: str         
+     
 class Prediction(BaseModel):
     text: str
     prediction: str
@@ -67,6 +76,31 @@ async def read_item(items: Items):
                 'score':''
             }
         )
+    answer = "prediction"
+    values = [a_dict[answer] for a_dict in result]
+    a=values.count("Positive")
+    b=values.count("Negative")
+    con = psycopg2.connect(
+        host = "15.206.153.123",
+        database="postgres",
+        user="postgres",
+        password="mysecretpassword"
+)
+      
+    cur = con.cursor()  
+    customer_id=data["customer_id"]
+    request_type="API"
+    instance_count=str(len(predictions))
+    positive_comments=str(a)
+    negative_comments=str(b)
+    status="Successful"
+    delivery_method="Real Time"
+    sql="INSERT INTO usage (customer_id,request_type,instance_count,positive_comments,negative_comments,status,delivery_method ) Values ('" + customer_id + "','" + request_type + "','" + instance_count + "','" + positive_comments + "','" + negative_comments + "','" + status + "','" + delivery_method + "')"
+    print(sql)
+    cur.execute(sql)
+    con.commit()
+    cur.close
+    con.close()
     return {'predictions': result}
 
 
@@ -77,6 +111,7 @@ async def create_upload_file(file: UploadFile = File(...), email: str = Form(...
     with open(path, 'wb') as f:
         f.write(contents)
         redis.lpush('uploads', json.dumps({"email": email, "file_name": file.filename}))
+        
     return {"filename": file.filename}
 
 

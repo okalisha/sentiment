@@ -21,6 +21,7 @@ class Login extends React.Component {
             
             const info = {
                 authenticated: response.data.authenticated,
+                customer_id:response.data.customer_id,
                 username: response.data.username,
                 userType: response.data.userType,
                 authToken: response.data.authToken

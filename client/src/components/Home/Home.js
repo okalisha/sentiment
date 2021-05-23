@@ -4,6 +4,7 @@ import { Progress } from 'reactstrap';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Cookies from 'js-cookie';
 
 class Home extends React.Component {
     constructor(props) {
@@ -20,16 +21,14 @@ class Home extends React.Component {
     }
 
     handleTextChange = event => {
-        clearTimeout(this.timer);
+
         this.setState((state) => ({
             ...state, prediction: null
         }));
         this.setState((state) => ({
             ...state, inputText: event.target.value
         }))
-        if (event.target.value.length > 10) {
-            this.timer = setTimeout(this.callPredictionAPI(), 10000)         
-        } 
+        
     }
 
     handleFileChange = event => {
@@ -57,7 +56,8 @@ class Home extends React.Component {
 
     callPredictionAPI = () => {
         axios.post('http://localhost:8001/predict', {
-            items:[this.state.inputText]
+            items:[this.state.inputText],
+            customer_id: Cookies.get('customer_id')
         }, {headers: {"Access-Control-Allow-Origin": "*"}})
         .then((response) => {
             this.setState((state) => ({
@@ -110,6 +110,7 @@ class Home extends React.Component {
                                 <hr/>
                                 <br />
                                 <Form.Control type="text" placeholder="Enter Text" className="mr-sm-2" onChange={this.handleTextChange}/>
+                                <Button className="btn btn-warning btn-block" onClick={this.callPredictionAPI}>Send</Button>
                                 <div>{this.state.prediction}</div>
                                 <br/>
                                 <hr/>

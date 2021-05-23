@@ -14,6 +14,7 @@ class App extends React.Component {
     super(props); 
     this.state = {
         authenticated: Cookies.get('authenticated') || false,
+        customer_id: Cookies.get('customer_id') || null,
         username: Cookies.get('username') || null,
         userType: Cookies.get('userType') || null,
         accessToken: Cookies.get('accessToken') || null,
@@ -23,12 +24,14 @@ class App extends React.Component {
   login = (info) => {
 
     Cookies.set('authenticated', info.authenticated);
+    Cookies.set('customer_id',info.customer_id);
     Cookies.set('username', info.username);
     Cookies.set('userType', info.userType);
     Cookies.set('authToken', info.authToken);
 
     this.setState({
       authenticated: info.authenticated,
+      customer_id: info.customer_id,
       username: info.username,
       userType: info.userType,
       authToken: info.authToken
@@ -41,12 +44,14 @@ class App extends React.Component {
 
   logout = () => {
     Cookies.remove('username')
+    Cookies.remove('customer_id')
     Cookies.remove('authenticated')
     Cookies.remove('userType')
     Cookies.remove('authToken')
 
     this.setState({
         authenticated: false,
+        customer_id: null,
         username: null,
         userType: null,
         authToken: null,
