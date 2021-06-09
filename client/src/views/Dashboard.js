@@ -1,54 +1,74 @@
 import React from "react";
 import ChartistGraph from "react-chartist";
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import ChartistTooltip from "chartist-plugin-tooltips-updated";
+// import "assets/css/style.css"
+
 // react-bootstrap components
 import {
-  Badge,
-  Button,
   Card,
-  Navbar,
-  Nav,
   Table,
   Container,
   Row,
   Col,
-  Form,
-  OverlayTrigger,
-  Tooltip,
 } from "react-bootstrap";
 
 class Dashboard extends React.Component {
+  constructor(props) {
+    super(props); 
+    this.state = {
+        "customer_id": Cookies.get('customer_id'),
+        "summary": {
+            "total": 0,
+            "positive": 0,
+            "negative": 0
+        },
+        "overall": {
+            "positive_percentage": 0,
+            "negative_percentage": 0
+        },
+        "monthly": {
+            "months": [],
+            "counts": {
+                "positive": [],
+                "negative": [],
+                "total": [],
+            }
+        },
+        "recent": []
+    }
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:8000/usage', {headers: {"Access-Control-Allow-Origin": "*"}})
+        .then((response) => {
+            
+            this.setState(response.data)
+            console.log(this.state)
+        }, (error) => {
+            console.log(error);
+        });
+  }
 
   render () {
+    let pieChart = {
+      labels: ["A", "B", "C"],
+      series: [
+        { meta: "A value is:", value: 10 },
+        { meta: "B value is:", value: 30 },
+        { meta: "C value is:", value: 60 }
+      ]
+    };
+    let pieOptions = {
+      showLabel: false,
+      ignoreEmptyValues: false,
+      plugins: [ChartistTooltip()]
+    };
     return (
       <>
         <Container fluid>
           <Row>
-            {/* <Col lg="3" sm="6">
-              <Card className="card-stats">
-                <Card.Body>
-                  <Row>
-                    <Col xs="5">
-                      <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-chart text-warning"></i>
-                      </div>
-                    </Col>
-                    <Col xs="7">
-                      <div className="numbers">
-                        <p className="card-category">Number</p>
-                        <Card.Title as="h4">150GB</Card.Title>
-                      </div>
-                    </Col>
-                  </Row>
-                </Card.Body>
-                <Card.Footer>
-                  <hr></hr>
-                  <div className="stats">
-                    <i className="fas fa-redo mr-1"></i>
-                    Update Now
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col> */}
             <Col lg="4" sm="6">
               <Card className="card-stats">
                 <Card.Body>
@@ -61,7 +81,7 @@ class Dashboard extends React.Component {
                     <Col xs="7">
                       <div className="numbers">
                         <p className="card-category">Reviews Processed</p>
-                        <Card.Title as="h4">15,000</Card.Title>
+                        <Card.Title as="h4">{this.state.summary.total}</Card.Title>
                       </div>
                     </Col>
                   </Row>
@@ -87,7 +107,7 @@ class Dashboard extends React.Component {
                     <Col xs="7">
                       <div className="numbers">
                         <p className="card-category">Positive Reviews</p>
-                        <Card.Title as="h4">9,500</Card.Title>
+                        <Card.Title as="h4">{this.state.summary.positive}</Card.Title>
                       </div>
                     </Col>
                   </Row>
@@ -113,7 +133,7 @@ class Dashboard extends React.Component {
                     <Col xs="7">
                       <div className="numbers">
                         <p className="card-category">Negative Reviews</p>
-                        <Card.Title as="h4">5,500</Card.Title>
+                        <Card.Title as="h4">{this.state.summary.negative}</Card.Title>
                       </div>
                     </Col>
                   </Row>
@@ -139,50 +159,8 @@ class Dashboard extends React.Component {
                   <div className="ct-chart" id="chartActivity">
                     <ChartistGraph
                       data={{
-                        labels: [
-                          "Jan",
-                          "Feb",
-                          "Mar",
-                          "Apr",
-                          "May",
-                          "Jun",
-                          "Jul",
-                          "Aug",
-                          "Sep",
-                          "Oct",
-                          "Nov",
-                          "Dec",
-                        ],
-                        series: [
-                          [
-                            542,
-                            443,
-                            320,
-                            780,
-                            553,
-                            453,
-                            326,
-                            434,
-                            568,
-                            610,
-                            756,
-                            895,
-                          ],
-                          [
-                            412,
-                            243,
-                            280,
-                            580,
-                            453,
-                            353,
-                            300,
-                            364,
-                            368,
-                            410,
-                            636,
-                            695,
-                          ],
-                        ],
+                        labels: this.state.monthly.months,
+                        series: [this.state.monthly.counts.positive, this.state.monthly.counts.negative],
                       }}
                       type="Bar"
                       options={{
@@ -235,8 +213,8 @@ class Dashboard extends React.Component {
                   >
                     <ChartistGraph
                       data={{
-                        labels: ["65%", "35%"],
-                        series: [65, 35]
+                        labels: [this.state.overall.positive_percentage+"%", this.state.overall.negative_percentage+"%"],
+                        series: [this.state.overall.positive_percentage, this.state.overall.negative_percentage]
                       }}
                       type="Pie"
                       options={{
@@ -273,30 +251,17 @@ class Dashboard extends React.Component {
                   <div className="ct-chart" id="chartHours">
                     <ChartistGraph
                       data={{
-                        labels: [
-                          "Jan",
-                          "Feb",
-                          "Mar",
-                          "Apr",
-                          "May",
-                          "Jun",
-                          "Jul",
-                          "Aug",
-                          "Sep",
-                          "Oct",
-                          "Nov",
-                          "Dec",
-                        ],
+                        labels: this.state.monthly.months,
                         series: [
                           [],
                           [],
-                          [500, 300, 200, 850, 770, 220, 150, 670, 150, 300, 79, 550],
+                          this.state.monthly.counts.total,
                         ],
                       }}
                       type="Line"
                       options={{
                         low: 0,
-                        high: 1000,
+                        high: 1800,
                         showArea: false,
                         height: "245px",
                         axisX: {

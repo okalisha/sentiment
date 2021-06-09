@@ -3,6 +3,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import psycopg2
+import psycopg2.extras
 
 app = FastAPI()
 
@@ -100,3 +101,59 @@ async def create_item(formdata: Form):
 
     return {"status": "signup successfull"}
     #raise HTTPException(status_code=401, detail="Not Allowed")
+
+
+@app.get("/usage")
+async def get_usage():
+
+    con = psycopg2.connect(
+        host = "15.206.153.123",
+        database="postgres",
+        user="postgres",
+        password="mysecretpassword"
+    )  
+
+    cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor) 
+    customer_id = 4
+    summary_query=f"select sum(instance_count) as total, sum(negative_comments) as negative, sum(positive_comments) as positive from usage where customer_id = '{customer_id}'"
+    monthly_query=f"""select EXTRACT(month from datetime) as month_number, LEFT(TO_CHAR(datetime, 'Month'), 3) as month, sum(instance_count) as total, sum(negative_comments) as negative,  sum(positive_comments) as positive from usage where customer_id = '{customer_id}' group by month_number, month order by month_number"""
+    recent_query=f"""select * from usage where customer_id = '{customer_id}' order by request_id desc limit 5"""
+    cur.execute(summary_query)
+    summary=cur.fetchall()
+    cur.execute(monthly_query)
+    monthly=cur.fetchall()
+    cur.execute(recent_query)
+    recent=cur.fetchall()
+    
+    result = {
+        "customer_id": customer_id,
+        "summary": {
+            "total": summary[0]['total'],
+            "positive": summary[0]['positive'],
+            "negative": summary[0]['negative'],
+        },
+        "overall": {
+            "positive_percentage": round(summary[0]['positive']/summary[0]['total'], 2)*100,
+            "negative_percentage": round(summary[0]['negative']/summary[0]['total'], 2)*100,
+        },
+        "monthly": {
+            "months": [row['month'] for row in monthly],
+            "counts": {
+                "positive": [row['positive'] for row in monthly],
+                "negative": [row['negative'] for row in monthly],
+                "total": [row['total'] for row in monthly],
+            },
+        },
+        "recent":[{
+            "time": str(row["datetime"]),
+            "reviews": row["instance_count"],
+            "positive": row["positive_comments"],
+            "negative": row["negative_comments"],
+            "request_type": row["request_type"],
+        } for row in recent]
+    }
+    
+    cur.close
+    con.close()
+
+    return result
