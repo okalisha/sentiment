@@ -30,33 +30,33 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
+    path: "/sentiment",
+    name: "Sentiment",
+    icon: "nc-icon nc-paper-2",
+    component: Sentiment,
+    layout: "/admin",
+  },
+  {
     path: "/user",
     name: "User Profile",
     icon: "nc-icon nc-circle-09",
     component: UserProfile,
     layout: "/admin",
   },
-  {
-    path: "/table",
-    name: "Table List",
-    icon: "nc-icon nc-notes",
-    component: TableList,
-    layout: "/admin",
-  },
-  {
-    path: "/typography",
-    name: "Typography",
-    icon: "nc-icon nc-paper-2",
-    component: Typography,
-    layout: "/admin",
-  },
-  {
-    path: "/sentiment",
-    name: "Sentiment",
-    icon: "nc-icon nc-paper-2",
-    component: Sentiment,
-    layout: "/admin",
-  }
+  // {
+  //   path: "/table",
+  //   name: "Table List",
+  //   icon: "nc-icon nc-notes",
+  //   component: TableList,
+  //   layout: "/admin",
+  // },
+  // {
+  //   path: "/typography",
+  //   name: "Typography",
+  //   icon: "nc-icon nc-paper-2",
+  //   component: Typography,
+  //   layout: "/admin",
+  // },
 ];
 
 export default dashboardRoutes;
