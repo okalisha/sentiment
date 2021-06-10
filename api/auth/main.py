@@ -29,6 +29,7 @@ class AuthInfo(BaseModel):
     userType: str
     authToken: str
     authenticated: bool
+    customer_id: int
 
 class SignupSuccess(BaseModel):
     status: str
@@ -60,19 +61,20 @@ async def read_item(credentials: Creds):
         password="mysecretpassword"
     )
     cur = con.cursor()
-    query="select first_name from customer where email='"+creds["username"]+"' and password='"+creds["password"]+"'"
+    query="select first_name, customer_id from customer where email='"+creds["username"]+"' and password='"+creds["password"]+"'"
     cur.execute(query)
     rows=cur.fetchall()
 
     if len(rows):
         success = True
         username = rows[0][0]
+        customer_id = rows[0][1]
 
     cur.close
     con.close()
     
     if success:
-        return {"username": username, "userType": "customer", "authToken": "abcxyz", "authenticated": True}
+        return {"username": username, "userType": "customer", "authToken": "abcxyz", "authenticated": True, "customer_id": customer_id}
     else:
         raise HTTPException(status_code=401, detail="Not Allowed")
 
@@ -103,8 +105,8 @@ async def create_item(formdata: Form):
     #raise HTTPException(status_code=401, detail="Not Allowed")
 
 
-@app.get("/usage")
-async def get_usage():
+@app.get("/usage/{customer_id}")
+async def get_usage(customer_id: int):
 
     con = psycopg2.connect(
         host = "15.206.153.123",
@@ -114,7 +116,6 @@ async def get_usage():
     )  
 
     cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor) 
-    customer_id = 4
     summary_query=f"select sum(instance_count) as total, sum(negative_comments) as negative, sum(positive_comments) as positive from usage where customer_id = '{customer_id}'"
     monthly_query=f"""select EXTRACT(month from datetime) as month_number, LEFT(TO_CHAR(datetime, 'Month'), 3) as month, sum(instance_count) as total, sum(negative_comments) as negative,  sum(positive_comments) as positive from usage where customer_id = '{customer_id}' group by month_number, month order by month_number"""
     recent_query=f"""select * from usage where customer_id = '{customer_id}' order by request_id desc limit 5"""

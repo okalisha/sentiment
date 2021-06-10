@@ -41,30 +41,16 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8000/usage', {headers: {"Access-Control-Allow-Origin": "*"}})
+    console.log(this.state.customer_id)
+    axios.get(`http://localhost:8000/usage/${this.state.customer_id}`, {headers: {"Access-Control-Allow-Origin": "*"}})
         .then((response) => {
-            
             this.setState(response.data)
-            console.log(this.state)
         }, (error) => {
             console.log(error);
         });
   }
 
   render () {
-    let pieChart = {
-      labels: ["A", "B", "C"],
-      series: [
-        { meta: "A value is:", value: 10 },
-        { meta: "B value is:", value: 30 },
-        { meta: "C value is:", value: 60 }
-      ]
-    };
-    let pieOptions = {
-      showLabel: false,
-      ignoreEmptyValues: false,
-      plugins: [ChartistTooltip()]
-    };
     return (
       <>
         <Container fluid>
