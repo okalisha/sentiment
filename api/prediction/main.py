@@ -90,7 +90,7 @@ async def read_item(items: Items):
     cur = con.cursor()  
     customer_id=data["customer_id"]
     request_type="API"
-    instance_count=str(len(predictions))
+    instance_count=str(len(values))
     positive_comments=str(a)
     negative_comments=str(b)
     status="Successful"
