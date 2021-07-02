@@ -1,65 +1,73 @@
 import React from 'react';
 import { Form, Container, Button, Card, InputGroup } from 'react-bootstrap';
-// import '../assets/css/Login.css'
+// import { Satellite } from '@material-ui/icons';
+
+// import { FontAwesomeIcon } from '@fortawesome/fontawesome-free'
+// import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import '../assets/css/Login.css'
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+
 class Login extends React.Component {
     constructor(props) {
-        super(props); 
+        super(props);
     }
 
     callLoginAPI = () => {
         axios.post('http://localhost:8000/login', {
             username: this.state.username,
             password: this.state.password
-        }, {headers: {"Access-Control-Allow-Origin": "*"}})
-        .then((response) => {
-            
-            const info = {
-                authenticated: response.data.authenticated,
-                customer_id:response.data.customer_id,
-                username: response.data.username,
-                userType: response.data.userType,
-                authToken: response.data.authToken
-            }
+        }, { headers: { "Access-Control-Allow-Origin": "*" } })
+            .then((response) => {
 
-            this.props.login(info)
+                const info = {
+                    authenticated: response.data.authenticated,
+                    customer_id: response.data.customer_id,
+                    username: response.data.username,
+                    userType: response.data.userType,
+                    authToken: response.data.authToken
+                }
 
-        }, (error) => {
-            console.log(error);
-        });
+                this.props.login(info)
+
+            }, (error) => {
+                console.log(error);
+            });
     }
 
-    handleUsernameChange = event =>  { 
-       
+    handleUsernameChange = event => {
+
         this.setState({
             username: event.target.value
         })
     }
 
-    handlePasswordChange = event => { 
+    handlePasswordChange = event => {
         this.setState({
             password: event.target.value
         })
     }
     render() {
         return (
+
             <div>
                 <Container>
                     <div className="d-flex justify-content-center h-100">
                         <Card>
-                            <Card.Header>
-                                <h3>LogIn</h3>
-                            </Card.Header>
+
+                            <h3>SignIn</h3>
+
                             <Card.Body>
                                 <Form>
                                     <Form.Group controlId="formGroupUsername">
                                         <InputGroup className="mb-3">
                                             <InputGroup.Prepend >
-                                                <InputGroup.Text />                                        
+                                                {/* <Satellite /> */}
+
+                                                {/* <InputGroup.Text />                                          */}
                                             </InputGroup.Prepend>
-                                            <Form.Control type="text" placeholder="USERNAME" onChange={this.handleUsernameChange}/>  
+                                            <Form.Control type="text" placeholder="USERNAME" onChange={this.handleUsernameChange} />
                                         </InputGroup>
                                     </Form.Group>
                                     <Form.Group controlId="formGroupPassword">
@@ -67,11 +75,11 @@ class Login extends React.Component {
                                             <InputGroup.Prepend >
                                                 <InputGroup.Text />
                                             </InputGroup.Prepend>
-                                            <Form.Control type="password" placeholder="PASSWORD" onChange={this.handlePasswordChange}/>  
+                                            <Form.Control type="password" placeholder="PASSWORD" onChange={this.handlePasswordChange} />
                                         </InputGroup>
                                     </Form.Group>
                                     <Form.Group>
-                                        <Button className="btn btn-warning btn-block" onClick={this.callLoginAPI}>Log In</Button>
+                                        <Button className="btn btn-info btn-block" onClick={this.callLoginAPI}>Log In</Button>
                                     </Form.Group>
                                 </Form>
                             </Card.Body>
@@ -87,6 +95,8 @@ class Login extends React.Component {
                     </div>
                 </Container>
             </div>
+
+
         )
     }
 }
