@@ -38,6 +38,7 @@ class Prediction(BaseModel):
     text: str
     prediction: str
     score: str
+    
 
 class Predictions(BaseModel):
     predictions: List[Prediction] 
@@ -73,7 +74,8 @@ async def read_item(items: Items):
             {
                 'text': data['items'][i], 
                 'prediction': predicted_class, 
-                'score':''
+                'score':'',
+                
             }
         )
     answer = "prediction"
