@@ -46,9 +46,11 @@ class Predictions(BaseModel):
 
 MODEL_PATH =  '../../modelling/model_svc'
 VECTORIZER_PATH = '../../modelling/vectorizer'
+FEATURE_SELECTION_PATH = '../../modelling/feature_selection'
 
 clf = load(open(MODEL_PATH, 'rb'))
 cv = load(open(VECTORIZER_PATH, 'rb'))
+fs = load(open(FEATURE_SELECTION_PATH, 'rb'))
 
 
 @app.get("/")
@@ -60,9 +62,10 @@ def read_root():
 async def read_item(items: Items):
     result = []
     data = items.dict()
-    print (data)
     data_vector = cv.transform(data['items']).toarray()
-    predictions = clf.predict(data_vector)
+    data_vector_reduced = fs.transform(data_vector)
+    predictions = clf.predict(data_vector_reduced)
+
     for i in range(len(predictions)):
         if predictions[i] == 1:
             predicted_class="Positive"
