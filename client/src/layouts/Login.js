@@ -4,9 +4,12 @@ import { Form, Container, Button, Card, InputGroup } from 'react-bootstrap';
 
 // import { FontAwesomeIcon } from '@fortawesome/fontawesome-free'
 // import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import PersonIcon from "@material-ui/icons/Person";
+import LockIcon from "@material-ui/icons/Lock";
 import '../assets/css/Login.css'
 import axios from 'axios';
 import Cookies from 'js-cookie';
+
 
 
 class Login extends React.Component {
@@ -51,21 +54,21 @@ class Login extends React.Component {
     render() {
         return (
 
-            <div>
-                <Container>
+            <div className="Loginpage">
+                <h5 className="loginlogo">Welcome To Reviews Insights</h5>
+             
+                <Container className="logincontainer" >
                     <div className="d-flex justify-content-center h-100">
-                        <Card>
-
-                            <h3>SignIn</h3>
-
+                        <Card className="logincard">
+                            <h3 className="loginheading">SignIn</h3>
                             <Card.Body>
                                 <Form>
                                     <Form.Group controlId="formGroupUsername">
                                         <InputGroup className="mb-3">
-                                            <InputGroup.Prepend >
-                                                {/* <Satellite /> */}
-
-                                                {/* <InputGroup.Text />                                          */}
+                                            <InputGroup.Prepend >                                   
+                                            <InputGroup.Text >
+                                            {<PersonIcon/>}
+                                            </InputGroup.Text>                                                                     
                                             </InputGroup.Prepend>
                                             <Form.Control type="text" placeholder="USERNAME" onChange={this.handleUsernameChange} />
                                         </InputGroup>
@@ -73,7 +76,9 @@ class Login extends React.Component {
                                     <Form.Group controlId="formGroupPassword">
                                         <InputGroup className="mb-3">
                                             <InputGroup.Prepend >
-                                                <InputGroup.Text />
+                                            <InputGroup.Text >
+                                            {<LockIcon/>}
+                                            </InputGroup.Text>
                                             </InputGroup.Prepend>
                                             <Form.Control type="password" placeholder="PASSWORD" onChange={this.handlePasswordChange} />
                                         </InputGroup>

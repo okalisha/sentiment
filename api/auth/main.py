@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import psycopg2
 import psycopg2.extras
 
+
 app = FastAPI()
 
 origins = [
@@ -52,8 +53,6 @@ def read_root():
 async def read_item(credentials: Creds):
     creds = credentials.dict()
     success= False
-
-
     con = psycopg2.connect(
         host = "15.206.153.123",
         database="postgres",

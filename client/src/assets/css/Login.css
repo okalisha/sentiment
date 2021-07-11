@@ -1,30 +1,25 @@
-
-html,
-body{
-background-image: linear-gradient( rgba(0, 0, 0, 0.9) 100%, rgba(0, 0, 0, 0.9)100%),url('https://wallpaperaccess.com/full/1393237.jpg');
-background-size: cover;
-background-position:bottom;;
-background: contain;
-background-repeat: no-repeat;
-height: 10px;
-/* font-family: 'Numans', sans-serif; */
+.Loginpage{
+    
+    background-image: linear-gradient( rgba(0, 0, 0, 0.9) 100%, rgba(0, 0, 0, 0.9)100%),url('https://wallpaperaccess.com/full/1393237.jpg');
+    background-size: cover;
+    background-position: center;
+    background: contain;
+    background-repeat: no-repeat;
+    height: 100%;  
+  
 }
-
-
-.container{
+.logincontainer{
 height: 100%;
 align-content: center;
 }
 
-
-.card{
+.logincard{
 height: 370px;
-margin-top: 180px;
+margin-top: 120px;
 margin-left: 700px;
 width: 400px;
 border: transparent;
 background-color: transparent;
-;
 }
 
 .social_icon span{
@@ -38,102 +33,22 @@ color:black;
 cursor: pointer;
 }
 
-h3{
-color:#12c8ff;
+.loginheading{
+color:blue;
 font-style: italic;
 font-family: Georgia, 'Times New Roman', Times, serif;
 text-align: center;
-
 }
 
-.social_icon{
-position: absolute;
-right: 20px;
-top: -45px;
-}
-
-.input-group-prepend span{
-width: 50px;
-background-color: #12c8ff;
-color: #12c8ff;
-border:0 !important;
-}
-
-input:focus{
-outline: 0 0 0 0  !important;
-box-shadow: 0 0 0 0 !important;
-
-}
-
-.remember{
-color: white;
-}
-
-.remember input
-{
-width: 20px;
-height: 20px;
-margin-left: 15px;
-margin-right: 5px;
-}
-
-.login_btn{
-color:darkgreen;
-background-color: darkgreen;
-width: 100px;
-}
-
-.login_btn:hover{
-color: black;
-background-color: green ;
-}
-
-html,
-body{
-background-image: linear-gradient( rgba(0, 0, 0, 0.9) 100%, rgba(0, 0, 0, 0.9)100%),url('https://wallpaperaccess.com/full/1393237.jpg');
-background-size: cover;
-background-position:bottom;;
-background: contain;
-background-repeat: no-repeat;
-height: 10px;
-/* font-family: 'Numans', sans-serif; */
+.loginlogo{
+    color:white;
+    font-style: italic;
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
 }
 
 
-.container{
-height: 100%;
-align-content: center;
-}
-
-
-.card{
-height: 370px;
-margin-top: 180px;
-margin-left: 700px;
-width: 400px;
-border: transparent;
-background-color: transparent;
-;
-}
-
-.social_icon span{
-font-size: 60px;
-margin-left: 10px;
-color: #12c8ff;
-}
-
-.social_icon span:hover{
-color:black;
-cursor: pointer;
-}
-
-h3{
-color:#12c8ff;
-font-style: italic;
-font-family: Georgia, 'Times New Roman', Times, serif;
-text-align: center;
-
-}
 
 .social_icon{
 position: absolute;
@@ -145,8 +60,8 @@ top: -45px;
 width: 50px;
 text-align: center;
 padding-top: 8px;
-background-color: #12c8ff;
-color: #000;
+background-color: black;
+color: white;
 border:0 !important;
 }
 

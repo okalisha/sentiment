@@ -43,7 +43,7 @@ function Sidebar({ color, image, routes }) {
           >
             <div className="logo-img">
               <img
-                src={require("assets/img/logo.jpg").default}
+                src={require("assets/img/logo.png").default}
                 alt="..."
               />
             </div>
