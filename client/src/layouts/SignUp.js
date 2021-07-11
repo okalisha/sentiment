@@ -1,12 +1,18 @@
 import React from 'react';
 import { Form, Container, Button, Navbar, Card, InputGroup } from 'react-bootstrap';
+import PersonIcon from "@material-ui/icons/Person";
+import LockIcon from "@material-ui/icons/Lock";
+import SettingsPhoneRoundedIcon from '@material-ui/icons/SettingsPhoneRounded';
+import EmailRoundedIcon from '@material-ui/icons/EmailRounded';
+import BusinessRoundedIcon from '@material-ui/icons/BusinessRounded';
+import '../assets/css/SignUp.css'
 import axios from 'axios';
 
 class SignUp extends React.Component {
     constructor(props) {
         super(props); 
         this.state = {
-           
+            
         }
     }
 
@@ -66,19 +72,23 @@ class SignUp extends React.Component {
 
     render() {
         return (
-            <div>
-                <Container>
+            
+            <div className="Signupbody" >
+                 <h5 className="loginlogo">Welcome To Reviews Insights</h5>
+                <Container className="signupcontainer">
                     <div className="d-flex justify-content-center h-100">
-                        <Card>
-                            <Card.Header>
-                                <h3>Sign Up</h3>
-                            </Card.Header>
+                        <Card classname="Signupcard">
+                            
+                                <h4 className="Signupheading">Sign Up</h4>
+                            
                             <Card.Body>
                                 <Form>
                                     <Form.Group controlId="formGroupFirstname">
                                         <InputGroup className="mb-3">
                                             <InputGroup.Prepend >
-                                                <InputGroup.Text />                                        
+                                            <InputGroup.Text >
+                                            {<PersonIcon/>}
+                                            </InputGroup.Text>                                        
                                             </InputGroup.Prepend>
                                             <Form.Control type="text" placeholder="First Name" onChange={this.handleFirstNameChange}/>  
                                         </InputGroup>
@@ -86,7 +96,9 @@ class SignUp extends React.Component {
                                     <Form.Group controlId="formGroupLastname">
                                         <InputGroup className="mb-3">
                                             <InputGroup.Prepend >
-                                                <InputGroup.Text />                                        
+                                            <InputGroup.Text >
+                                            {<PersonIcon/>}
+                                            </InputGroup.Text>                                      
                                             </InputGroup.Prepend>
                                             <Form.Control type="text" placeholder="Last Name" onChange={this.handleLastNameChange}/>  
                                         </InputGroup>
@@ -94,7 +106,9 @@ class SignUp extends React.Component {
                                     <Form.Group controlId="formGroupOrganizationName">
                                         <InputGroup className="mb-3">
                                             <InputGroup.Prepend >
-                                                <InputGroup.Text />
+                                            <InputGroup.Text >
+                                            {<BusinessRoundedIcon/>}
+                                            </InputGroup.Text> 
                                             </InputGroup.Prepend>
                                             <Form.Control type="text" placeholder="Organization Name" onChange={this.handleOrganizationNameChange}/>
                                         </InputGroup>
@@ -102,7 +116,9 @@ class SignUp extends React.Component {
                                     <Form.Group controlId="formGroupEmail">
                                         <InputGroup className="mb-3">
                                             <InputGroup.Prepend >
-                                                <InputGroup.Text />
+                                            <InputGroup.Text >
+                                            {<EmailRoundedIcon/>}
+                                            </InputGroup.Text>       
                                             </InputGroup.Prepend>
                                             <Form.Control type="text" placeholder="Email" onChange={this.handleEmailChange}/>
                                         </InputGroup>
@@ -110,7 +126,9 @@ class SignUp extends React.Component {
                                     <Form.Group controlId="formGroupPhone">
                                         <InputGroup className="mb-3">
                                             <InputGroup.Prepend >
-                                                <InputGroup.Text />                                        
+                                            <InputGroup.Text >
+                                            {<SettingsPhoneRoundedIcon/>}
+                                            </InputGroup.Text>                                        
                                             </InputGroup.Prepend>
                                             <Form.Control type="text" placeholder="Phone Number" onChange={this.handlePhoneNumberChange}/>  
                                         </InputGroup>
@@ -118,13 +136,15 @@ class SignUp extends React.Component {
                                     <Form.Group controlId="formGroupPassword">
                                         <InputGroup className="mb-3">
                                             <InputGroup.Prepend >
-                                                <InputGroup.Text />
+                                            <InputGroup.Text >
+                                            {<LockIcon/>}
+                                            </InputGroup.Text>
                                             </InputGroup.Prepend>
                                             <Form.Control type="password" placeholder="Password" onChange={this.handlePasswordChange}/>
                                         </InputGroup>
                                     </Form.Group>                           
                                     <Form.Group>
-                                        <Button className="btn btn-warning btn-block" onClick={this.signup}>SignUp</Button>
+                                        <Button className="btn btn-info btn-block" onClick={this.signup}>SignUp</Button>
                                     </Form.Group>
                                 </Form>
                             </Card.Body>
@@ -133,6 +153,7 @@ class SignUp extends React.Component {
                     </div>
                 </Container>
             </div>
+           
         )
     }
 }
