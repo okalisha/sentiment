@@ -15,7 +15,7 @@ import pandas as pd
 nltk.download('stopwords')
 
 app = FastAPI()
-redis = Redis(host='localhost', port=6379, db=0)
+redis = Redis(host='15.206.153.123', port=6379, db=0)
 
 origins = [
     "http://localhost",
@@ -25,7 +25,7 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -113,12 +113,12 @@ async def read_item(items: Items):
 
 
 @app.post("/upload")
-async def create_upload_file(file: UploadFile = File(...), email: str = Form(...)):
+async def create_upload_file(file: UploadFile = File(...), email: str = Form(...), customer_id: int = 0):
     contents = await file.read()
     path = f'../../data/uploads/{file.filename}'
     with open(path, 'wb') as f:
         f.write(contents)
-        redis.lpush('uploads', json.dumps({"email": email, "file_name": file.filename}))
+        redis.lpush('uploads', json.dumps({"email": email, "file_name": file.filename, "customer_id": customer_id}))
         
     return {"filename": file.filename}
 

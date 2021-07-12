@@ -82,7 +82,8 @@ class Sentiment extends React.Component {
         const data = new FormData() 
         data.append('file', this.state.selectedFile)
         data.append('email', this.state.email)
-        axios.post("http://localhost:8000/upload", data, {
+        data.append('customer_id', Cookies.get('customer_id'))
+        axios.post("http://localhost:8001/upload", data, {
             onUploadProgress: ProgressEvent => {
                 this.setState((state) => ({
                     ...state, 
