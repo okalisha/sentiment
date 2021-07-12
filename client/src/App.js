@@ -15,6 +15,7 @@ class App extends React.Component {
         username: Cookies.get('username') || null,
         userType: Cookies.get('userType') || null,
         accessToken: Cookies.get('accessToken') || null,
+        accessToken: Cookies.get('email') || null,
     }
   }
 
@@ -25,13 +26,15 @@ class App extends React.Component {
     Cookies.set('username', info.username);
     Cookies.set('userType', info.userType);
     Cookies.set('authToken', info.authToken);
+    Cookies.set('email', info.email);
 
     this.setState({
       authenticated: info.authenticated,
       customer_id: info.customer_id,
       username: info.username,
       userType: info.userType,
-      authToken: info.authToken
+      authToken: info.authToken,
+      email: info.email
     })
   }
 
@@ -41,6 +44,7 @@ class App extends React.Component {
     Cookies.remove('authenticated')
     Cookies.remove('userType')
     Cookies.remove('authToken')
+    Cookies.remove('email')
 
     this.setState({
         authenticated: false,
@@ -48,6 +52,7 @@ class App extends React.Component {
         username: null,
         userType: null,
         authToken: null,
+        email: null,
     })
   }
 

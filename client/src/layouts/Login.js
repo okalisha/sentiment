@@ -19,7 +19,7 @@ class Login extends React.Component {
 
     callLoginAPI = () => {
         axios.post('http://localhost:8000/login', {
-            username: this.state.username,
+            email: this.state.email,
             password: this.state.password
         }, { headers: { "Access-Control-Allow-Origin": "*" } })
             .then((response) => {
@@ -29,7 +29,8 @@ class Login extends React.Component {
                     customer_id: response.data.customer_id,
                     username: response.data.username,
                     userType: response.data.userType,
-                    authToken: response.data.authToken
+                    authToken: response.data.authToken,
+                    email: response.data.email
                 }
 
                 this.props.login(info)
@@ -39,10 +40,10 @@ class Login extends React.Component {
             });
     }
 
-    handleUsernameChange = event => {
+    handleEmailChange = event => {
 
         this.setState({
-            username: event.target.value
+            email: event.target.value
         })
     }
 
@@ -63,14 +64,14 @@ class Login extends React.Component {
                             <h3 className="loginheading">SignIn</h3>
                             <Card.Body>
                                 <Form>
-                                    <Form.Group controlId="formGroupUsername">
+                                    <Form.Group controlId="formGroupEmail">
                                         <InputGroup className="mb-3">
                                             <InputGroup.Prepend >                                   
                                             <InputGroup.Text >
                                             {<PersonIcon/>}
                                             </InputGroup.Text>                                                                     
                                             </InputGroup.Prepend>
-                                            <Form.Control type="text" placeholder="USERNAME" onChange={this.handleUsernameChange} />
+                                            <Form.Control type="text" placeholder="EMAIL" onChange={this.handleEmailChange} />
                                         </InputGroup>
                                     </Form.Group>
                                     <Form.Group controlId="formGroupPassword">

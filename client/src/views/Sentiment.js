@@ -16,7 +16,7 @@ class Sentiment extends React.Component {
             uploadStatus: false,
             fileName: 'Upload File...',
             loaded: 0,
-            email: null
+            email: Cookies.get('email') || null
         }
     }
 
@@ -116,7 +116,7 @@ class Sentiment extends React.Component {
                                 <br/>
                                 <hr/>
                                 <br/>
-                                <Form.Control type="email" placeholder="email@example.com" className="mr-sm-2" onChange={this.handleEmailChange}/>
+                                <Form.Control type="email" placeholder="email@example.com" className="mr-sm-2" onChange={this.handleEmailChange} value={this.state.email}/>
                                 <Form.File id="custom-file" label={this.state.fileName} custom onChange={this.handleFileChange}/>
                                 <br/>
                                 <br/>

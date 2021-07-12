@@ -22,7 +22,7 @@ app.add_middleware(
 )
 
 class Creds(BaseModel):
-    username: str
+    email: str
     password: str
 
 class AuthInfo(BaseModel):
@@ -31,6 +31,7 @@ class AuthInfo(BaseModel):
     authToken: str
     authenticated: bool
     customer_id: int
+    email: str
 
 class SignupSuccess(BaseModel):
     status: str
@@ -60,7 +61,7 @@ async def read_item(credentials: Creds):
         password="mysecretpassword"
     )
     cur = con.cursor()
-    query="select first_name, customer_id from customer where email='"+creds["username"]+"' and password='"+creds["password"]+"'"
+    query="select first_name, customer_id, email from customer where email='"+creds["email"]+"' and password='"+creds["password"]+"'"
     cur.execute(query)
     rows=cur.fetchall()
 
@@ -68,12 +69,13 @@ async def read_item(credentials: Creds):
         success = True
         username = rows[0][0]
         customer_id = rows[0][1]
+        email = rows[0][2]
 
     cur.close
     con.close()
     
     if success:
-        return {"username": username, "userType": "customer", "authToken": "abcxyz", "authenticated": True, "customer_id": customer_id}
+        return {"username": username, "userType": "customer", "authToken": "abcxyz", "authenticated": True, "customer_id": customer_id, "email": email}
     else:
         raise HTTPException(status_code=401, detail="Not Allowed")
 
