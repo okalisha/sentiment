@@ -79,11 +79,11 @@ async def read_item(items: Items):
         )
     
     df = pd.DataFrame(result)
-    df_merged = df.groupby('prediction')['text'].apply(lambda x: clean_text(', '.join(x))).reset_index()
+    df_merged = df.groupby('prediction')['text'].apply(lambda x: ', '.join(x)).reset_index()
     df_merged['keywords'] = df_merged['text'].apply(lambda x: get_keywords(x))
     keywords_list = json.loads(df_merged[['keywords','prediction']].to_json(index=False,orient='table'))['data']
     keywords = {x['prediction']: x['keywords'] for x in keywords_list}
-
+    
     answer = "prediction"
     values = [a_dict[answer] for a_dict in result]
     a=values.count("Positive")
@@ -132,18 +132,13 @@ async def create_upload_file(file: UploadFile = File(...), email: str = Form(...
 #         clf = load(open('../../modelling/model_nvb', 'rb'))
 #     return {"response": "success", "new_id": model_id}
 
-
-def clean_text(text):
-    review = re.sub('[^a-zA-Z]', ' ', text)
-    review = review.lower()
-    review = review.split()
-    all_stopwords = stopwords.words('english')
-    all_stopwords.remove('not')
-    review = [word for word in review if not word in set(all_stopwords)]
-    cleaned_text = ' '.join(review)
-    return cleaned_text
-
 def get_keywords(text):
-    r = Rake(min_length=1,max_length=4)
-    r.extract_keywords_from_text(text)
+    cleaned_text = remove_punctuations(text)
+    r = Rake(min_length=1,max_length=3)
+    r.extract_keywords_from_text(cleaned_text)
     return r.get_ranked_phrases()
+
+def remove_punctuations(text):
+    tokenizer = nltk.RegexpTokenizer(r"\w+")
+    cleaned_text = tokenizer.tokenize(text)
+    return " ".join(cleaned_text)
