@@ -21,7 +21,9 @@ def convert_label(label):
 while True:
     data = json.loads(redis.blpop("uploads")[1].decode("utf-8"))
     result = []
-    file_path = "../data/uploads/" + data['file_name']
+    upload_path = "../data/uploads/"
+    file_name = data['file_name']
+    file_path =  upload_path + file_name
     dataframe = pd.read_csv(file_path, header=None)
     data_vector = cv.transform(dataframe[0]).toarray()
     data_vector_reduced = fs.transform(data_vector)
@@ -74,7 +76,8 @@ while True:
     dataframe = dataframe.merge(pd.DataFrame(predictions), left_index=True, right_index=True, how='inner')
     dataframe.columns = ['Review', 'Prediction']
     dataframe['Prediction'] = dataframe.apply(lambda x: convert_label(x['Prediction']), axis=1)
-    dataframe.to_csv(file_path, index=False)
+    result_path = "../data/results/"
+    dataframe.to_csv(result_path + file_name , index=False)
     mail.send_email(data['email'], data['file_name']
 )
     print('email sent')
