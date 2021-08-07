@@ -8,8 +8,8 @@ from email.mime.text import MIMEText
 def send_email(receiver_email, file_name):
     subject = "An email with attachment from Python"
     body = "This is an email with attachment sent from Python"
-    sender_email = "myfccia@gmail.com"
-    password = "wplufahehtyocdxd"
+    sender_email = "reviewzinsights@gmail.com"
+    password = "fhenitaforidfltz"
     receiver_email = receiver_email
 
     # Create a multipart message and set headers
