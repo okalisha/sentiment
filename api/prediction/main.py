@@ -114,7 +114,7 @@ async def read_item(items: Items):
 
 
 @app.post("/upload")
-async def create_upload_file(file: UploadFile = File(...), email: str = Form(...), customer_id: int = 0):
+async def create_upload_file(file: UploadFile = File(...), email: str = Form(...), customer_id: int = Form(...)):
     contents = await file.read()
     path = f'../../data/uploads/{file.filename}'
     with open(path, 'wb') as f:
