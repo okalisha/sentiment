@@ -148,6 +148,14 @@ class Dashboard extends React.Component {
             </Row>
             <Row>
             <Col md="8">
+                <select className="form-control" onChange={this.changeSomething} value={this.state.currentYear}>
+                  {
+                    Object.keys(this.state.yearly).map((year) =>{
+                      return <option>{year}</option>
+                      } 
+                    )
+                  }
+                </select>
                 <Card>
                   <Card.Header>
                     <Card.Title as="h4">2020 Sentiment</Card.Title>
@@ -157,8 +165,8 @@ class Dashboard extends React.Component {
                     <div className="ct-chart" id="chartActivity">
                       <ChartistGraph
                         data={{
-                          labels: this.state.monthly.months,
-                          series: [this.state.monthly.counts.positive, this.state.monthly.counts.negative],
+                          labels: this.state.yearly[2020].months,
+                          series: [this.state.yearly[2020].counts.positive, this.state.yearly[2020].counts.negative],
                         }}
                         type="Bar"
                         options={{

@@ -118,15 +118,32 @@ async def get_usage(customer_id: int):
 
     cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor) 
     summary_query=f"select sum(instance_count) as total, sum(negative_comments) as negative, sum(positive_comments) as positive from usage where customer_id = '{customer_id}'"
-    monthly_query=f"""select EXTRACT(month from datetime) as month_number, LEFT(TO_CHAR(datetime, 'Month'), 3) as month, sum(instance_count) as total, sum(negative_comments) as negative,  sum(positive_comments) as positive from usage where customer_id = '{customer_id}' group by month_number, month order by month_number"""
+    yearly_query=f"""select EXTRACT(month from datetime) as month_number, EXTRACT(year from datetime) as year, LEFT(TO_CHAR(datetime, 'Month'), 3) as month, sum(instance_count) as total, sum(negative_comments) as negative,  sum(positive_comments) as positive from usage where customer_id = '{customer_id}' group by month_number, month, year order by month_number"""
     recent_query=f"""select * from usage where customer_id = '{customer_id}' order by request_id desc limit 5"""
     cur.execute(summary_query)
     summary=cur.fetchall()
-    cur.execute(monthly_query)
-    monthly=cur.fetchall()
+    cur.execute(yearly_query)
+    yearly=cur.fetchall()
     cur.execute(recent_query)
     recent=cur.fetchall()
     
+    # get summary for each year
+    years = []
+    for row in yearly:
+        years.append(row['year'])
+        sorted(years)
+    years = list(set(years))
+    yearly_dict = {}
+    for year in years:
+        yearly_dict[int(year)] = {
+            "months": [row['month'] for row in yearly if row['year'] == year],
+            "counts": {
+                "positive": [row['positive'] for row in yearly if row['year'] == year],
+                "negative": [row['negative'] for row in yearly if row['year'] == year],
+                "total": [row['total'] for row in yearly if row['year'] == year],
+            }
+        }
+
     result = {
         "customer_id": customer_id,
         "summary": {
@@ -138,14 +155,7 @@ async def get_usage(customer_id: int):
             "positive_percentage": round(summary[0]['positive']/summary[0]['total'], 2)*100,
             "negative_percentage": round(summary[0]['negative']/summary[0]['total'], 2)*100,
         },
-        "monthly": {
-            "months": [row['month'] for row in monthly],
-            "counts": {
-                "positive": [row['positive'] for row in monthly],
-                "negative": [row['negative'] for row in monthly],
-                "total": [row['total'] for row in monthly],
-            },
-        },
+        "yearly": yearly_dict,
         "recent":[{
             "time": str(row["datetime"]),
             "reviews": row["instance_count"],
