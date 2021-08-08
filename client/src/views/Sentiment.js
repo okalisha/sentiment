@@ -32,10 +32,10 @@ class Sentiment extends React.Component {
     }
 
     handleFileChange = event => {
-        if (event.target.files[0].type !== "text/csv") {
-            toast.error('Only CSV files are allowed.');
-            return
-        }
+        // if (event.target.files[0].type !== "text/csv") {
+        //     toast.error('Only CSV files are allowed.');
+        //     return
+        // }
         if (event.target.files[0].size > 26214400) {
             toast.error('File is too large. Acceptable size is 25 MB');
             return

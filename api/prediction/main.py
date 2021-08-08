@@ -47,9 +47,10 @@ MODEL_PATH =  '../../modelling/model_svc'
 VECTORIZER_PATH = '../../modelling/vectorizer'
 FEATURE_SELECTION_PATH = '../../modelling/feature_selection'
 
-clf = load(open(MODEL_PATH, 'rb'))  # classifier
-cv = load(open(VECTORIZER_PATH, 'rb'))  # count vectorizer
-fs = load(open(FEATURE_SELECTION_PATH, 'rb'))  # tree based feature selection
+
+clf = load(open(MODEL_PATH, "rb"))  # classifier
+cv = load(open(VECTORIZER_PATH, "rb"))  # count vectorizer
+fs = load(open(FEATURE_SELECTION_PATH, "rb"))  # tree based feature selection
 
 
 @app.get("/")
