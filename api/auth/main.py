@@ -36,13 +36,23 @@ class AuthInfo(BaseModel):
 class SignupSuccess(BaseModel):
     status: str
 
-class Form(BaseModel):
+class SignUpForm(BaseModel):
     first_name: str
     last_name: str
     email: str
     phone: str
     company: str
     password: str
+
+class ProfileForm(BaseModel):
+    customer_id: int
+    first_name: str
+    last_name: str
+    email: str
+    contact: str
+    company: str
+  
+
 
 
 @app.get("/")
@@ -80,7 +90,7 @@ async def read_item(credentials: Creds):
         raise HTTPException(status_code=401, detail="Not Allowed")
 
 @app.post("/signup", response_model=SignupSuccess)
-async def create_item(formdata: Form):
+async def create_item(formdata: SignUpForm):
     form = formdata.dict()
 
     con = psycopg2.connect(
@@ -171,3 +181,42 @@ async def get_usage(customer_id: int):
     con.close()
 
     return result
+
+@app.get("/info/{customer_id}")
+async def get_customer_info(customer_id: int):
+    con = psycopg2.connect(
+        host = "15.206.153.123",
+        database="postgres",
+        user="postgres",
+        password="mysecretpassword"
+    )
+
+    info_query = f"""select customer_id, first_name, last_name, email, contact, company, created_date from customer c where customer_id = {customer_id}"""
+    cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor) 
+    cur.execute(info_query)
+    info=cur.fetchone()
+    return dict(info)
+
+@app.post("/update")
+async def update_profile(formdata: ProfileForm):
+    form = formdata.dict()
+    print(form)
+    con = psycopg2.connect(
+        host = "15.206.153.123",
+        database="postgres",
+        user="postgres",
+        password="mysecretpassword"
+    )
+    cur = con.cursor()  
+    c_customer_id= form['customer_id']
+    c_first_name= form['first_name']
+    c_last_name= form['last_name']
+    c_email= form['email']
+    c_contact= form['contact']
+    c_company= form['company']
+    update_query=f"""update customer set first_name='{c_first_name}', last_name='{c_last_name}', email='{c_email}', contact='{c_contact}', company='{c_company}' where customer_id='{c_customer_id}'""" 
+    cur.execute(update_query)
+    con.commit()
+    cur.close()
+    con.close()
+    return {"status":"Successfull"}

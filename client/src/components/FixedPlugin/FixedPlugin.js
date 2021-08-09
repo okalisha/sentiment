@@ -1,21 +1,3 @@
-/*!
-
-=========================================================
-* Light Bootstrap Dashboard React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-/*eslint-disable*/
 import React, { Component } from "react";
 
 import { Dropdown, Badge, Button, Form } from "react-bootstrap";
@@ -158,7 +140,7 @@ function FixedPlugin({
               <Button
                 block
                 className="btn-fill"
-                href="http://www.creative-tim.com/product/light-bootstrap-dashboard-react"
+                href=""
                 rel="noopener noreferrer"
                 target="_blank"
                 variant="info"
@@ -172,7 +154,7 @@ function FixedPlugin({
               <Button
                 block
                 className="btn-fill"
-                href="http://www.creative-tim.com/product/light-bootstrap-dashboard-react"
+                href=""
                 rel="noopener noreferrer"
                 target="_blank"
                 variant="default"
@@ -189,7 +171,7 @@ function FixedPlugin({
               <Button
                 block
                 className="btn-fill"
-                href="http://www.creative-tim.com/product/light-bootstrap-dashboard-pro-react"
+                href=""
                 rel="noopener noreferrer"
                 target="_blank"
                 variant="primary"
