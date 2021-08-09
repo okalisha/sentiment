@@ -37,27 +37,35 @@ class Dashboard extends React.Component {
                 "total": [],
             }
         },
-        "recent": []
+        "yearly": {
+          1900: {}
+        },
+        "recent": [],
+        "selectedYear": 2020
     }
   }
 
   componentDidMount() {
-    console.log(this.state.customer_id)
     axios.get(`http://localhost:8000/usage/${this.state.customer_id}`, {headers: {"Access-Control-Allow-Origin": "*"}})
         .then((response) => {
             this.setState(response.data)
             this.setState({loaded: true})
-            console.log(this.state)
+            // console.log(response.data)
+            // this.setState({selectedYear: Object.keys(response.data.yearly)[0]})
         }, (error) => {
             console.log(error);
         });
+  }
+
+  changeSomething = event => {
+    this.setState({selectedYear: event.target.value})
   }
 
   render () {
     if (!this.state.loaded){
       return(
         <Container fluid>
-          <div class="centered">
+          <div className="centered">
             <Spinner style={{width:'130px', height:'130px'}} animation="border" />
           </div>
         </Container>
@@ -148,25 +156,25 @@ class Dashboard extends React.Component {
             </Row>
             <Row>
             <Col md="8">
-                <select className="form-control" onChange={this.changeSomething} value={this.state.currentYear}>
+                <select className="form-control" onChange={this.changeSomething}>
                   {
-                    Object.keys(this.state.yearly).map((year) =>{
-                      return <option>{year}</option>
+                    Object.keys(this.state.yearly).map((year, idx) =>{
+                      return <option key={idx}>{year}</option>
                       } 
                     )
                   }
                 </select>
                 <Card>
                   <Card.Header>
-                    <Card.Title as="h4">2020 Sentiment</Card.Title>
+                    <Card.Title as="h4">{this.state.selectedYear} Sentiment</Card.Title>
                     <p className="card-category">All Products</p>
                   </Card.Header>
                   <Card.Body>
                     <div className="ct-chart" id="chartActivity">
                       <ChartistGraph
                         data={{
-                          labels: this.state.yearly[2020].months,
-                          series: [this.state.yearly[2020].counts.positive, this.state.yearly[2020].counts.negative],
+                          labels: this.state.yearly[this.state.selectedYear].months,
+                          series: [this.state.yearly[this.state.selectedYear].counts.positive, this.state.yearly[this.state.selectedYear].counts.negative],
                         }}
                         type="Bar"
                         options={{
@@ -257,11 +265,11 @@ class Dashboard extends React.Component {
                     <div className="ct-chart" id="chartHours">
                       <ChartistGraph
                         data={{
-                          labels: this.state.monthly.months,
+                          labels: this.state.yearly[this.state.selectedYear].months,
                           series: [
                             [],
                             [],
-                            this.state.monthly.counts.total,
+                            this.state.yearly[this.state.selectedYear].counts.total,
                           ],
                         }}
                         type="Line"
