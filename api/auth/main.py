@@ -171,3 +171,18 @@ async def get_usage(customer_id: int):
     con.close()
 
     return result
+
+@app.get("/info/{customer_id}")
+async def get_customer_info(customer_id: int):
+    con = psycopg2.connect(
+        host = "15.206.153.123",
+        database="postgres",
+        user="postgres",
+        password="mysecretpassword"
+    )
+
+    info_query = f"""select customer_id, first_name, last_name, email, contact, company, created_date from customer c where customer_id = {customer_id}"""
+    cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor) 
+    cur.execute(info_query)
+    info=cur.fetchone()
+    return dict(info)
