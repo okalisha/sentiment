@@ -200,6 +200,7 @@ async def get_customer_info(customer_id: int):
 @app.post("/update")
 async def update_profile(formdata: ProfileForm):
     form = formdata.dict()
+    print(form)
     con = psycopg2.connect(
         host = "15.206.153.123",
         database="postgres",
@@ -213,7 +214,7 @@ async def update_profile(formdata: ProfileForm):
     c_email= form['email']
     c_contact= form['contact']
     c_company= form['company']
-    update_query=f"""update customer set first_name='{c_first_name}', last_name='{c_last_name}', email='{c_email}', contact='{c_contact}' where customer_id='{c_customer_id}'""" 
+    update_query=f"""update customer set first_name='{c_first_name}', last_name='{c_last_name}', email='{c_email}', contact='{c_contact}', company='{c_company}' where customer_id='{c_customer_id}'""" 
     cur.execute(update_query)
     con.commit()
     cur.close()

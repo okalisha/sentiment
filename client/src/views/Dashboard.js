@@ -41,7 +41,7 @@ class Dashboard extends React.Component {
           1900: {}
         },
         "recent": [],
-        "selectedYear": 2020
+        "selectedYear": 2021
     }
   }
 

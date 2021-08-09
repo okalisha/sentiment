@@ -38,10 +38,11 @@ class User extends React.Component {
       last_name: this.state.last_name,
       company: this.state.company,
       email: this.state.email,
-      conatct: this.state.phone,
+      contact: this.state.contact,
     }, {headers: {"Access-Control-Allow-Origin": "*"}})
     .then((response) => {
-      console.log(response)
+      console.log(response);
+      alert("Information Updated!")
     }, (error) => {
       console.log(error);
     });
@@ -60,21 +61,15 @@ class User extends React.Component {
     })
   } 
 
-  handleOrganizationNameChange = event => { 
-    this.setState({
-        company: event.target.value
-    })
-  }
-
   handlePhoneNumberChange = event => { 
     this.setState({
         contact: event.target.value
     })
   }
 
-  handleEmailChange = event => { 
+  handleCompanyChange = event => { 
     this.setState({
-        email: event.target.value
+        company: event.target.value
     })
   }
  
@@ -94,25 +89,25 @@ class User extends React.Component {
                     <Row>
                       <Col className="pr-1" md="5">
                         <Form.Group>
-                          <label>Company (disabled)</label>
+                          <label>Company</label>
                           <Form.Control
                             defaultValue={this.state.company}
-                            disabled
                             placeholder="Company"
                             type="text"
-                            
+                            onChange={this.handleCompanyChange}
                           ></Form.Control>
                         </Form.Group>
                       </Col>
                       <Col className="pl-1" md="7">
                         <Form.Group>
                           <label htmlFor="exampleInputEmail1">
-                            Email Address
+                            Email Address (Disabled)
                           </label>
                           <Form.Control
                             placeholder="Email"
                             type="email"
                             defaultValue={this.state.email}
+                            disabled
                             onChange={this.handleEmailChange}
                           ></Form.Control>
                         </Form.Group>
