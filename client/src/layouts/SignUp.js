@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Container, Button, Navbar, Card, InputGroup } from 'react-bootstrap';
+import { Form, Container, Col, Button, Navbar, Card, InputGroup } from 'react-bootstrap';
 import PersonIcon from "@material-ui/icons/Person";
 import LockIcon from "@material-ui/icons/Lock";
 import SettingsPhoneRoundedIcon from '@material-ui/icons/SettingsPhoneRounded';
@@ -74,11 +74,14 @@ class SignUp extends React.Component {
         return (
             
             <div className="Signupbody" >
-                 <h5 className="loginlogo">Welcome To Reviews Insights</h5>
-                <Container className="signupcontainer">
-                    <div className="d-flex justify-content-center h-100">
-                        <Card classname="Signupcard">
-                            
+                <Col col="sm-4">
+                  <h5 className="loginlogo">Welcome To Reviews Insights</h5> 
+                </Col> 
+                {/* <Container className="signupcontainer">
+                    <div className="d-flex justify-content-center h-100"> */}
+                    <Col col="sm-8" style={{"margin-left": "10px"}}>
+                         <Card classname="Signupcard" style={{"width": "380px", "border": "transparent", "background-color": "transparent", }}> 
+                        
                                 <h4 className="Signupheading">Sign Up</h4>
                             
                             <Card.Body>
@@ -148,11 +151,12 @@ class SignUp extends React.Component {
                                     </Form.Group>
                                 </Form>
                             </Card.Body>
-                                        
-                        </Card>
+                                 
+                         </Card> 
+                         </Col>
                     </div>
-                </Container>
-            </div>
+            //     </Container>
+            // </div>
            
         )
     }

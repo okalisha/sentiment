@@ -28,10 +28,9 @@ function User() {
                   <Row>
                     <Col className="pr-1" md="5">
                       <Form.Group>
-                        <label>Company (disabled)</label>
-                        <Form.Control
-                          defaultValue="Creative Code Inc."
-                          disabled
+                        <label>Company </label>
+                        <Form.Control                        
+                       
                           placeholder="Company"
                           type="text"
                         ></Form.Control>
@@ -41,7 +40,7 @@ function User() {
                       <Form.Group>
                         <label>Username</label>
                         <Form.Control
-                          defaultValue="michael23"
+
                           placeholder="Username"
                           type="text"
                         ></Form.Control>
@@ -64,7 +63,7 @@ function User() {
                       <Form.Group>
                         <label>First Name</label>
                         <Form.Control
-                          defaultValue="Mike"
+                          
                           placeholder="Company"
                           type="text"
                         ></Form.Control>
@@ -74,7 +73,7 @@ function User() {
                       <Form.Group>
                         <label>Last Name</label>
                         <Form.Control
-                          defaultValue="Andrew"
+                          
                           placeholder="Last Name"
                           type="text"
                         ></Form.Control>
@@ -86,7 +85,7 @@ function User() {
                       <Form.Group>
                         <label>Address</label>
                         <Form.Control
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                          
                           placeholder="Home Address"
                           type="text"
                         ></Form.Control>
@@ -98,7 +97,7 @@ function User() {
                       <Form.Group>
                         <label>City</label>
                         <Form.Control
-                          defaultValue="Mike"
+                       
                           placeholder="City"
                           type="text"
                         ></Form.Control>
@@ -108,7 +107,7 @@ function User() {
                       <Form.Group>
                         <label>Country</label>
                         <Form.Control
-                          defaultValue="Andrew"
+                          
                           placeholder="Country"
                           type="text"
                         ></Form.Control>
@@ -130,8 +129,7 @@ function User() {
                         <label>About Me</label>
                         <Form.Control
                           cols="80"
-                          defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                          that two seat Lambo."
+                         
                           placeholder="Here can be your description"
                           rows="4"
                           as="textarea"

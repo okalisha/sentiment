@@ -1,4 +1,5 @@
-.Loginpage{
+html,
+.Loginbody{
     
     background-image: linear-gradient( rgba(0, 0, 0, 0.9) 100%, rgba(0, 0, 0, 0.9)100%),url('https://wallpaperaccess.com/full/1393237.jpg');
     background-size: cover;
@@ -43,7 +44,8 @@ text-align: center;
 .loginlogo{
     color:white;
     font-style: italic;
-    font-size: 30px;
+    font-size: 25px;
+    margin-top: 200px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-align: center;
 }

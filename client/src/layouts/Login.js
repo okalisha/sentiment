@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Container, Button, Card, InputGroup } from 'react-bootstrap';
+import { Form, Container, Col, Button, Card, InputGroup } from 'react-bootstrap';
 // import { Satellite } from '@material-ui/icons';
 
 // import { FontAwesomeIcon } from '@fortawesome/fontawesome-free'
@@ -9,6 +9,9 @@ import LockIcon from "@material-ui/icons/Lock";
 import '../assets/css/Login.css'
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import logo from "assets/img/frontlogo.jpeg";
+
+
 
 
 
@@ -54,12 +57,22 @@ class Login extends React.Component {
     }
     render() {
         return (
-
-            <div className="Loginpage">
-                <h5 className="loginlogo">Welcome To Reviews Insights</h5>
-             
-                <Container className="logincontainer" >
-                    <div className="d-flex justify-content-center h-100">
+         <div className="Loginbody" >
+            {/* <Container className="logincontainer" >
+            <div className="d-flex justify-content-center h-100"> */}
+               
+                    <Col col="sm-4">
+                    <div className="card-image">
+                {/* <img
+                  alt="..."
+                  src={
+                    require("assets/img/")
+                      .default
+                  }
+                ></img> */}
+              </div>
+                    </Col>
+                    <Col col="sm-8">
                         <Card className="logincard">
                             <h3 className="loginheading">SignIn</h3>
                             <Card.Body>
@@ -98,8 +111,13 @@ class Login extends React.Component {
                                 </div>
                             </Card.Footer>
                         </Card>
-                    </div>
-                </Container>
+                   
+                    </Col>
+                    
+            
+                
+                    {/* </div>
+                 </Container>  */}
             </div>
 
 

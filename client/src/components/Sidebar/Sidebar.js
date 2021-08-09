@@ -20,7 +20,7 @@ import { useLocation, NavLink } from "react-router-dom";
 
 import { Nav } from "react-bootstrap";
 
-import logo from "assets/img/logo.jpg";
+import logo from "assets/img/logo.png";
 
 function Sidebar({ color, image, routes }) {
   const location = useLocation();

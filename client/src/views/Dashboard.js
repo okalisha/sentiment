@@ -311,7 +311,7 @@ class Dashboard extends React.Component {
                     <hr></hr>
                     <div className="stats">
                       <i className="fas fa-history"></i>
-                      Updated 3 minutes ago
+                      
                     </div>
                   </Card.Footer>
                 </Card>
