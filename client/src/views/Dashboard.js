@@ -50,8 +50,6 @@ class Dashboard extends React.Component {
         .then((response) => {
             this.setState(response.data)
             this.setState({loaded: true})
-            // console.log(response.data)
-            // this.setState({selectedYear: Object.keys(response.data.yearly)[0]})
         }, (error) => {
             console.log(error);
         });
@@ -324,9 +322,6 @@ class Dashboard extends React.Component {
               <Card className="strpied-tabled-with-hover">
                 <Card.Header>
                   <Card.Title as="h4">Recent Requests</Card.Title>
-                  {/* <p className="card-category">
-                    Here is a subtitle for this table
-                  </p> */}
                 </Card.Header>
                 <Card.Body className="table-full-width table-responsive px-0">
                   <Table className="table-hover table-striped">
@@ -338,49 +333,24 @@ class Dashboard extends React.Component {
                         <th className="border-0">Positive</th>
                         <th className="border-0">Negative</th>
                         <th className="border-0">Request Type</th>
+                        <th className="border-0">Delivery Method</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>5</td>
-                        <td>2021-06-09 12:30</td>
-                        <td>52</td>
-                        <td>35</td>
-                        <td>17</td>
-                        <td>API</td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>2021-06-07 11:35</td>
-                        <td>170</td>
-                        <td>40</td>
-                        <td>130</td>
-                        <td>API</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>2021-06-05 14:57</td>
-                        <td>200</td>
-                        <td>88</td>
-                        <td>112</td>
-                        <td>API</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>2021-05-31 10:26</td>
-                        <td>97</td>
-                        <td>84</td>
-                        <td>13</td>
-                        <td>API</td>
-                      </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>2021-04-31 12:30</td>
-                        <td>88</td>
-                        <td>34</td>
-                        <td>54</td>
-                        <td>API</td>
-                      </tr>
+                      {
+                        this.state.recent.map((row, idx) => {
+                          return (
+                          <tr key={idx}>
+                            <td>{row.request_id}</td>
+                            <td>{row.time}</td>
+                            <td>{row.reviews}</td>
+                            <td>{row.positive}</td>
+                            <td>{row.negative}</td>
+                            <td>{row.request_type}</td>
+                            <td>{row.delivery_method}</td>
+                          </tr>)
+                        })
+                      }
                     </tbody>
                   </Table>
                 </Card.Body>

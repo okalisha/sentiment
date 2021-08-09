@@ -119,7 +119,7 @@ async def get_usage(customer_id: int):
     cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor) 
     summary_query=f"select sum(instance_count) as total, sum(negative_comments) as negative, sum(positive_comments) as positive from usage where customer_id = '{customer_id}'"
     yearly_query=f"""select EXTRACT(month from datetime) as month_number, EXTRACT(year from datetime) as year, LEFT(TO_CHAR(datetime, 'Month'), 3) as month, sum(instance_count) as total, sum(negative_comments) as negative,  sum(positive_comments) as positive from usage where customer_id = '{customer_id}' group by month_number, month, year order by month_number"""
-    recent_query=f"""select * from usage where customer_id = '{customer_id}' order by request_id desc limit 5"""
+    recent_query=f"""select * from usage where customer_id = '{customer_id}' order by datetime desc limit 5"""
     cur.execute(summary_query)
     summary=cur.fetchall()
     cur.execute(yearly_query)
@@ -157,11 +157,13 @@ async def get_usage(customer_id: int):
         },
         "yearly": yearly_dict,
         "recent":[{
+            "request_id": row["request_id"],
             "time": str(row["datetime"]),
             "reviews": row["instance_count"],
             "positive": row["positive_comments"],
             "negative": row["negative_comments"],
             "request_type": row["request_type"],
+            "delivery_method": row["delivery_method"],
         } for row in recent]
     }
     

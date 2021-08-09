@@ -61,12 +61,12 @@ while True:
       
     cur = con.cursor()  
     customer_id=str(data["customer_id"])
-    request_type="API"
+    request_type="File"
     instance_count=str(len(values))
     positive_comments=str(a)
     negative_comments=str(b)
     status="Successful"
-    delivery_method="Real Time"
+    delivery_method="Email"
     sql="INSERT INTO usage (customer_id,request_type,instance_count,positive_comments,negative_comments,status,delivery_method ) Values ('" + customer_id + "','" + request_type + "','" + instance_count + "','" + positive_comments + "','" + negative_comments + "','" + status + "','" + delivery_method + "')"
     cur.execute(sql)
     con.commit()
