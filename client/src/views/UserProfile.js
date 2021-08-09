@@ -30,6 +30,54 @@ class User extends React.Component {
         });
   }
 
+  updateProfile= () => {
+    console.log(this.state)
+    axios.post('http://localhost:8000/update', {
+      customer_id: this.state.customer_id,
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      company: this.state.company,
+      email: this.state.email,
+      conatct: this.state.phone,
+    }, {headers: {"Access-Control-Allow-Origin": "*"}})
+    .then((response) => {
+      console.log(response)
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
+  handleFirstNameChange = event =>  { 
+       
+    this.setState({
+        first_name: event.target.value
+    })
+  }
+  handleLastNameChange = event =>  { 
+   
+    this.setState({
+        last_name: event.target.value
+    })
+  } 
+
+  handleOrganizationNameChange = event => { 
+    this.setState({
+        company: event.target.value
+    })
+  }
+
+  handlePhoneNumberChange = event => { 
+    this.setState({
+        contact: event.target.value
+    })
+  }
+
+  handleEmailChange = event => { 
+    this.setState({
+        email: event.target.value
+    })
+  }
+ 
 
   render () {
     return (
@@ -52,6 +100,7 @@ class User extends React.Component {
                             disabled
                             placeholder="Company"
                             type="text"
+                            
                           ></Form.Control>
                         </Form.Group>
                       </Col>
@@ -64,6 +113,7 @@ class User extends React.Component {
                             placeholder="Email"
                             type="email"
                             defaultValue={this.state.email}
+                            onChange={this.handleEmailChange}
                           ></Form.Control>
                         </Form.Group>
                       </Col>
@@ -76,6 +126,7 @@ class User extends React.Component {
                             defaultValue={this.state.first_name}
                             placeholder="Company"
                             type="text"
+                            onChange={this.handleFirstNameChange}
                           ></Form.Control>
                         </Form.Group>
                       </Col>
@@ -86,6 +137,7 @@ class User extends React.Component {
                             defaultValue={this.state.last_name}
                             placeholder="Last Name"
                             type="text"
+                            onChange={this.handleLastNameChange}
                           ></Form.Control>
                         </Form.Group>
                       </Col>
@@ -98,14 +150,16 @@ class User extends React.Component {
                             defaultValue={this.state.contact}
                             placeholder="Contact Number"
                             type="text"
+                            onChange={this.handlePhoneNumberChange}
                           ></Form.Control>
                         </Form.Group>
                       </Col>
                     </Row>
                     <Button
                       className="btn-fill pull-right"
-                      type="submit"
+                      type="button"
                       variant="info"
+                      onClick={this.updateProfile}
                     >
                       Update Profile
                     </Button>
