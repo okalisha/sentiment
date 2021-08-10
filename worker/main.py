@@ -4,6 +4,9 @@ from redis import Redis
 import pandas as pd
 from pickle import load
 import psycopg2
+from rake_nltk import Rake
+import re
+import nltk
 
 redis = Redis(host='15.206.153.123', port=6379, db=0)
 
@@ -17,6 +20,18 @@ fs = load(open(FEATURE_SELECTION_PATH, 'rb'))  # tree based feature selection
 
 def convert_label(label):
     return 'Positive' if label == 1 else 'Negative'
+
+def get_keywords(text):
+    cleaned_text = remove_punctuations(text)
+    r = Rake(min_length=1,max_length=1)
+    r.extract_keywords_from_text(cleaned_text)
+    keywords = ','.join(r.get_ranked_phrases())
+    return keywords
+
+def remove_punctuations(text):
+    tokenizer = nltk.RegexpTokenizer(r"\w+")
+    cleaned_text = tokenizer.tokenize(text)
+    return " ".join(cleaned_text)
 
 while True:
     data = json.loads(redis.blpop("uploads")[1].decode("utf-8"))
@@ -76,6 +91,7 @@ while True:
     dataframe = dataframe.merge(pd.DataFrame(predictions), left_index=True, right_index=True, how='inner')
     dataframe.columns = ['Review', 'Prediction']
     dataframe['Prediction'] = dataframe.apply(lambda x: convert_label(x['Prediction']), axis=1)
+    dataframe['Keywords'] = dataframe['Review'].apply(lambda x: get_keywords(x))
     result_path = "../data/results/"
     dataframe.to_csv(result_path + file_name , index=False)
     mail.send_email(data['email'], data['file_name']
