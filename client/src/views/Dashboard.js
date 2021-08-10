@@ -41,7 +41,8 @@ class Dashboard extends React.Component {
           1900: {}
         },
         "recent": [],
-        "selectedYear": 2021
+        "selectedYear": 2021,
+        "years": []
     }
   }
 
@@ -50,6 +51,9 @@ class Dashboard extends React.Component {
         .then((response) => {
             this.setState(response.data)
             this.setState({loaded: true})
+            var years = Object.keys(response.data.yearly)
+            this.setState({years: years.reverse()})
+            this.setState({selectedYear: years[0]})
         }, (error) => {
             console.log(error);
         });
@@ -156,7 +160,7 @@ class Dashboard extends React.Component {
             <Col md="8">
                 <select className="form-control" onChange={this.changeSomething}>
                   {
-                    Object.keys(this.state.yearly).map((year, idx) =>{
+                    this.state.years.map((year, idx) => {
                       return <option key={idx}>{year}</option>
                       } 
                     )

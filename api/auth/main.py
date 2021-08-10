@@ -141,8 +141,9 @@ async def get_usage(customer_id: int):
     years = []
     for row in yearly:
         years.append(row['year'])
-        sorted(years)
     years = list(set(years))
+    years.sort()
+    years.reverse()
     yearly_dict = {}
     for year in years:
         yearly_dict[int(year)] = {
