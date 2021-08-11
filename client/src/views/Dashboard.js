@@ -98,7 +98,7 @@ class Dashboard extends React.Component {
                     <hr></hr>
                     <div className="stats">
                       <i className="far fa-calendar-alt mr-1"></i>
-                      Since June 10, 2015
+                      
                     </div>
                   </Card.Footer>
                 </Card>
@@ -124,7 +124,7 @@ class Dashboard extends React.Component {
                     <hr></hr>
                     <div className="stats">
                       <i className="far fa-calendar-alt mr-1"></i>
-                      Since June 10, 2015
+                      
                     </div>
                   </Card.Footer>
                 </Card>
@@ -150,7 +150,7 @@ class Dashboard extends React.Component {
                     <hr></hr>
                     <div className="stats">
                       <i className="far fa-calendar-alt mr-1"></i>
-                      Since June 10, 2015
+                      
                     </div>
                   </Card.Footer>
                 </Card>

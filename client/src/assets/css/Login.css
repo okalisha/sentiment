@@ -1,4 +1,3 @@
-html,
 .Loginbody{
     
     background-image: linear-gradient( rgba(0, 0, 0, 0.9) 100%, rgba(0, 0, 0, 0.9)100%),url('https://wallpaperaccess.com/full/1393237.jpg');
@@ -10,15 +9,15 @@ html,
   
 }
 .logincontainer{
-height: 100%;
-align-content: center;
+height: 100px;
+/* align-content: center; */
 }
 
 .logincard{
-height: 370px;
-margin-top: 120px;
-margin-left: 700px;
-width: 400px;
+/* height: 370px;  */
+margin-top: -50px;
+margin-left: 200px; 
+width: 400px; 
 border: transparent;
 background-color: transparent;
 }
@@ -34,18 +33,21 @@ color:black;
 cursor: pointer;
 }
 
+
 .loginheading{
-color:blue;
+color:#12c8ff;
+font-size: 50px;
 font-style: italic;
 font-family: Georgia, 'Times New Roman', Times, serif;
 text-align: center;
 }
 
 .loginlogo{
-    color:white;
+    
+    color:#12c8ff;
     font-style: italic;
-    font-size: 25px;
-    margin-top: 200px;
+    font-size: 70px;
+    margin-top: -50px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-align: center;
 }

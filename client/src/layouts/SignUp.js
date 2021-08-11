@@ -73,14 +73,16 @@ class SignUp extends React.Component {
     render() {
         return (
             
-            <div className="Signupbody" >
-                <Col col="sm-4">
-                  <h5 className="loginlogo">Welcome To Reviews Insights</h5> 
-                </Col> 
-                {/* <Container className="signupcontainer">
-                    <div className="d-flex justify-content-center h-100"> */}
-                    <Col col="sm-8" style={{"margin-left": "10px"}}>
-                         <Card classname="Signupcard" style={{"width": "380px", "border": "transparent", "background-color": "transparent", }}> 
+            <div className="Signupbody" style={{"height": "969px" }}>
+                    <Container className="d-flex align-items-center" style={{"height": "969px"}}>
+                    <div className="d-flex align-content-start flex-wrap "> 
+                  <div  className="signuplogo"><h>Welcome To Reviews Insight</h></div>
+               
+                  </div>
+              
+            
+                  <div className="d-flex align-content-end flex-wrap  ">
+                         <Card classname="signupcard" style={{"width": "380px","margin-top": "-50px","margin-left": "200px",  "border": "transparent", "background-color": "transparent", }}> 
                         
                                 <h4 className="Signupheading">Sign Up</h4>
                             
@@ -153,10 +155,10 @@ class SignUp extends React.Component {
                             </Card.Body>
                                  
                          </Card> 
-                         </Col>
+                        
                     </div>
-            //     </Container>
-            // </div>
+                </Container>
+            </div>
            
         )
     }

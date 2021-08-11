@@ -9,7 +9,7 @@ import LockIcon from "@material-ui/icons/Lock";
 import '../assets/css/Login.css'
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import logo from "assets/img/frontlogo.jpeg";
+import logo from "assets/img/logo.png";
 
 
 
@@ -57,23 +57,20 @@ class Login extends React.Component {
     }
     render() {
         return (
-         <div className="Loginbody" >
-            {/* <Container className="logincontainer" >
-            <div className="d-flex justify-content-center h-100"> */}
+         <div className="Loginbody" style={{"height": "969px", }} >
+            <Container className="d-flex align-items-center" style={{"height": "969px", }} >
+
+            <div className="d-flex align-content-start flex-wrap "  >
+        
                
-                    <Col col="sm-4">
-                    <div className="card-image">
-                {/* <img
-                  alt="..."
-                  src={
-                    require("assets/img/")
-                      .default
-                  }
-                ></img> */}
+                <div  className="loginlogo">
+               
+                    <h>Welcome To Reviews Insight</h></div>
+               
               </div>
-                    </Col>
-                    <Col col="sm-8">
-                        <Card className="logincard">
+                   
+              <div className="d-flex align-content-end flex-wrap  ">
+              <Card className="logincard">
                             <h3 className="loginheading">SignIn</h3>
                             <Card.Body>
                                 <Form>
@@ -111,13 +108,12 @@ class Login extends React.Component {
                                 </div>
                             </Card.Footer>
                         </Card>
-                   
-                    </Col>
+                        </div>
                     
-            
+                   
                 
-                    {/* </div>
-                 </Container>  */}
+                    
+                 </Container> 
             </div>
 
 

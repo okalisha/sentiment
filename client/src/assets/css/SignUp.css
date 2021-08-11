@@ -14,11 +14,13 @@
     align-content: center;
 } 
     
-.Signupcard{
- 
-    border: transparent;
-    background-color: transparent;
-    }
+.signupcard{
+margin-top: 100px;
+margin-left: 200px; 
+width: 400px; 
+border: transparent;
+background-color: transparent;
+}
     
     
 .social_icon span{
@@ -33,12 +35,21 @@
 }
     
 .Signupheading{
-    color:black;
+    color:#12c8ff;
     font-size: 50px;
     font-style: italic;
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-align: center;
     
+}
+.signuplogo{
+    
+    color:#12c8ff;
+    font-style: italic;
+    font-size: 70px;
+    margin-top: -50px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
 }
     
     .social_icon{
